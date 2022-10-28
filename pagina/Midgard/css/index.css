@@ -1,0 +1,9 @@
+
+.container{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    -ms-flex-align: center;
+    flex-direction: row;
+}
+

@@ -24,11 +24,11 @@
         $usuario=$_POST['user'];
         $password=$_POST['clave'];
 
-        $consulta="SELECT*FROM usuario where (username='$usuario' or enail='$usuario') and clave='$password'";
+        $consulta="SELECT*FROM usuario where (username='$usuario' or email='$usuario') and clave='$password'";
         $resultado=mysqli_query($conexion,$consulta);
 
         $filas=mysqli_num_rows($resultado);
-        if($filas){
+        if($filas == 1){
             header("location:index.html");
 
         }
@@ -64,6 +64,5 @@
             echo "Inserción fallida";
         }
     }
-
 
 ?>
