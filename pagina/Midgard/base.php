@@ -3,20 +3,20 @@
         //ESCRIBIR LOS PARAMETROS DE LA BASE DE DATOS
         $id = "localhost"; //192.168.4.231
         $usuario = "root";
-        $clave = "1605";
+        $clave = "Salamence13"; //era 1605
         $bdName = "midgard";
 
         //METODO QUE SE CONECTA A LA BASE DE DATOS
         $conexion = new mysqli("$id", "$usuario", "$clave", "$bdName");
 
         //CONDICIONAL QUE VERIFICA LA CONEXIÓN
-        /*
+       
         if($conexion){
             echo "Conexión exitosa";
         }
         else{
             echo "Conección fallida";
-        }*/
+        }
     }
     
     function validarUsuario(){
@@ -63,6 +63,34 @@
         else{
             echo "Inserción fallida";
         }
+    }
+
+    function tomarDepts(){
+        conexion();
+
+        //VARIABLE QUE ME REALIZA EL SELECT EN LA TABLA
+        $vDepts = "SELECT nombre FROM DEPARTAMENTO";
+
+        //COMPROBAR QUE SE EJECUTO ADECUADAMENTE
+        $resultado = $conexion->query($vDepts);
+
+        //Esto es de prueba
+        foreach($resultado as $vl){
+            echo $vl;
+        }
+
+    }
+
+    function agruparNews(/*¿Pasar el departamento para filtrar?*/){
+        conexion();
+
+        //VARIABLE QUE ME REALIZA EL SELECT EN LA TABLA
+        $vNews = "SELECT titulo, mensaje, imagen FROM PUBLICACION";
+
+        //COMPROBAR QUE SE EJECUTO ADECUADAMENTE
+        $resultado = $conexion->query($vDepts);
+
+
     }
 
 ?>
