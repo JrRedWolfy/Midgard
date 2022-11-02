@@ -2,19 +2,10 @@ use midgard;
 
 DELETE FROM PANTALLA_PUBLICACION WHERE id_publicacion IS NOT NULL AND ip_pantalla IS NOT NULL;
 DELETE FROM PUBLICACION WHERE id_publicacion IS NOT NULL;
-DELETE FROM DEPARTAMENTO_USUARIO WHERE username IS NOT NULL AND id_departamento IS NOT NULL;
 DELETE FROM USUARIO WHERE username IS NOT NULL;
 DELETE FROM ROL WHERE id_rol IS NOT NULL;
 DELETE FROM PANTALLA WHERE ip IS NOT NULL;
 DELETE FROM ESTADO WHERE id_estado IS NOT NULL;
-DELETE FROM DEPARTAMENTO WHERE id_departamento IS NOT NULL;
-
-INSERT INTO DEPARTAMENTO VALUES 
-(1, 'Administrativo'),
-(2, 'Automoción'),
-(3, 'Electricidad'),
-(4, 'Informática'),
-(5, 'Sanitaria');
 
 INSERT INTO ESTADO VALUES 
 (1, "Activo"),
@@ -22,10 +13,10 @@ INSERT INTO ESTADO VALUES
 (3, "Denegado");
 
 INSERT INTO PANTALLA VALUES 
-("192.168.4.168", "Edificio de Servicios Centrales"),
-("192.168.4.169", "Edificio Botánico LOSCOS"),
-("192.168.4.170", "Edificio Cardenal RAM"),
-("192.168.4.171", "Edificio Cardenal RAM");
+("192.168.4.168", "Edificio de Servicios Centrales", "Redondo 1"),
+("192.168.4.169", "Edificio Botánico LOSCOS", "Loscos 1"),
+("192.168.4.170", "Edificio Cardenal RAM", "Ram 1"),
+("192.168.4.171", "Edificio Cardenal RAM", "Ram 2");
 
 INSERT INTO ROL VALUES 
 (1, "Admin"),
