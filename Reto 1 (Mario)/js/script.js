@@ -32,6 +32,10 @@ window.addEventListener("load", function() {
     // } 
 });
 
+function thisDate() {
+    alert("Pichu");
+}
+
 //GESTION DE ROLES
 function noLogin(){
     document.getElementsByTagName("ul")[0].remove();

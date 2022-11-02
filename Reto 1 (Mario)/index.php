@@ -106,7 +106,7 @@
                         <p class="m-0 mb-2">Establece el rango de fechas en que tu mensaje sera público</p>
                         <div class="col">
                             <label for="fechaInicio" class="form-label m-0">Fecha inicio</label>
-                            <input type="date" class="form-control" name="fechaInicio" min="2022-11-01"><!-- MIRAR COMO COLOCAR AQUI SIEMPRE LA FECHA ACTUAL -->
+                            <input class="dateA" type="date" class="form-control" name="fechaInicio" onload="thisDate();" min=""><!-- MIRAR COMO COLOCAR AQUI SIEMPRE LA FECHA ACTUAL -->
                         </div>
                         <div class="col">
                             <label for="fechaFin" class="form-label m-0">Fecha fin</label>
