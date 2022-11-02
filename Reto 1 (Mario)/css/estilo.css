@@ -1,0 +1,6 @@
+body{
+    text-align: left;
+}
+.margin_check{ /* PREGUNTAR PORQUE ml-num no funciona */
+    margin-left: 5px;
+}
