@@ -106,11 +106,11 @@
                         <p class="m-0 mb-2">Establece el rango de fechas en que tu mensaje sera público</p>
                         <div class="col">
                             <label for="fechaInicio" class="form-label m-0">Fecha inicio</label>
-                            <input class="dateA" type="date" class="form-control" name="fechaInicio" onload="thisDate();" min=""><!-- MIRAR COMO COLOCAR AQUI SIEMPRE LA FECHA ACTUAL -->
+                            <input id="dateA" type="date" class="form-control" onchange="selectDate()" name="fechaInicio" min=""><!-- MIRAR COMO COLOCAR AQUI SIEMPRE LA FECHA ACTUAL -->
                         </div>
                         <div class="col">
                             <label for="fechaFin" class="form-label m-0">Fecha fin</label>
-                            <input type="date" class="form-control" name="fechaFin" min="2022-11-01"> <!-- EL MINIMO SERIA LA FECHA DE INICIO (SI ES POSIBLE QUE SE ACTUALICE AUTOMATICAMENTE) -->
+                            <input id="dateB" type="date"  class="form-control" name="fechaFin" min="2022-11-01"> <!-- EL MINIMO SERIA LA FECHA DE INICIO (SI ES POSIBLE QUE SE ACTUALICE AUTOMATICAMENTE) -->
                         </div>
                     </div>
                         <input class="form-control mt-3" type="file" id="formImg"><!-- GESTIONAR DISEÑO Y METODO QUE SOLO ACEPTE IMAGENES HASTA UN CIERTO TAMAÑO Y SU TRANSFORMACIÓN PARA LA BD -->
