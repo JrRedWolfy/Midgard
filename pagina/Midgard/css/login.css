@@ -1,0 +1,60 @@
+body{
+    width: 100vw;
+    height: 100vh; 
+    background: linear-gradient(rgba(47, 23, 15, 0.65),rgba(47, 23, 15, 0.65)), url(../img/bg.jpeg) center no-repeat;
+    background-size: cover;
+}
+
+form{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    width: 100vw;
+    height: 100vh; 
+}
+fieldset{
+    border-radius: 10px;
+    font-weight: 800;
+    color: white;
+}
+fieldset > *{
+    margin: 15px 10px;
+}
+
+legend{
+    font-size: 30px;
+}
+
+.cajas{
+    position: relative;
+    box-shadow: 1px 1px 6px 0.3px darkgray;
+    border-radius: 3px;
+    margin: 15px 10px;
+}
+
+.cajas > *{
+    padding: 10px;
+}
+
+input, input:active{
+    border: none;
+    outline: none;
+}
+
+#ojo{
+    position: absolute;
+    right: 0;
+    color: black;
+}
+#ojo:hover{
+    cursor: pointer;
+}
+
+input[type="submit"]{
+    margin: 0 10px;
+    border-radius: 5px; 
+    padding: 10px;
+    background: orange;
+    font-weight: 500;
+}
