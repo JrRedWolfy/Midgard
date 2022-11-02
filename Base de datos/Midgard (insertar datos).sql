@@ -29,12 +29,6 @@ INSERT INTO USUARIO VALUES
 ("ruben", "123", "Ruben Sancho Puig", "rubeensanchoopuigg18@gmail.com", '31245678G', 2),
 ("pablo", "123", "Gil Pablo Blanco", "gilpablo2000.GPBP@gmail.com", '43215678E', 3);
 
-INSERT INTO DEPARTAMENTO_USUARIO VALUES /* HACER TRIGGER QUE ACTUALICE ESTA TABLA TRAS LA INSERCIÓN DEL USUARIO*/
-("mario", 4),
-("mario", 5),
-("david", 4),
-("ruben", 4),
-("pablo", 4);
 
  /* FORMATO FECHA MYSQL: AAAA-MM-DD */
 INSERT INTO PUBLICACION VALUES
