@@ -154,8 +154,13 @@
     function insertarPublicacion(){
         conexion();
         //ASIGNAR A UNA VARIABLE LA INFORMACIÖN DE CADA CAMPO DEL FORMULARIO
-        $var1 = $_POST['name'];
+        $var1 = $_POST['titulo'];
         $var2 = $_POST['mensaje'];
+        $var3 = $_POST['fechaInicio'];
+        $var4 = $_POST['fechaFin'];
+        $var5 = $_POST['mensaje'];
+        $var6 = $_POST['mensaje'];
+        $var7 = $_POST['mensaje'];
 
         //VARIABLE QUE ME REALIZA EL INSERT EN LA TABLA
         $insertar = "INSERT INTO tabla(atr1, atr2) VALUES('$var1','$var2')";

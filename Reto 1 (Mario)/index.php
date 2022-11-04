@@ -88,37 +88,37 @@
                 </div>
                 <!-- CONTENIDO DEL MODAL PUBLICACIÓN -->
                 <form method="post" action="base.php" class="text-left" onsubmit="return verificarForm();">
-                <div class="modal-body"> 
-                    <p class="m-0 mb-2">Seleccione los departamentos a los que desea enviar la publicación</p>
-                    <div class="row mt-2 mb-0"><!-- VERIFICAR EL LARGO DE ASUNTO Y MENSAJE EN LA BASE DE DATOS PARA EVITAR ERRORES -->
-                        <?php include_once "base.php"; listarDepartamentos();?>
-                    </div>
-                    <button type="button" class="btn btn-success btn-sm mt-2" onclick="marcarTodos()">Marcar todos</button><br>
-                    
-                    <label for="asunto" class="form-label mt-2">Asunto</label>
-                    <input type="text" class="form-control" id="asunto" required>
-
-                    <label for="mensaje" class="form-label">Mensaje</label>
-                    <textarea name="mensaje" class="form-control"cols="3" rows="3" maxlength="5000" required></textarea>
-
-                    <div class="row mt-2">
-                        <?php $fecha = date("2022-11-01")?>
-                        <p class="m-0 mb-2">Establece el rango de fechas en que tu mensaje sera público</p>
-                        <div class="col">
-                            <label for="fechaInicio" class="form-label m-0">Fecha inicio</label>
-                            <input id="dateA" type="date" class="form-control" onchange="selectDate()" name="fechaInicio" min="">
+                    <div class="modal-body"> 
+                        <p class="m-0 mb-2">Seleccione los departamentos a los que desea enviar la publicación</p>
+                        <div class="row mt-2 mb-0"><!-- VERIFICAR EL LARGO DE ASUNTO Y MENSAJE EN LA BASE DE DATOS PARA EVITAR ERRORES -->
+                            <?php include_once "base.php"; listarDepartamentos();?>
                         </div>
-                        <div class="col">
-                            <label for="fechaFin" class="form-label m-0">Fecha fin</label>
-                            <input id="dateB" type="date"  class="form-control" name="fechaFin" min="2022-11-01">
+                        <button type="button" class="btn btn-success btn-sm mt-2" onclick="marcarTodos()">Marcar todos</button><br>
+
+                        <label for="asunto" class="form-label mt-2">Asunto</label>
+                        <input type="text" name="titulo" class="form-control" id="asunto" required>
+
+                        <label for="mensaje" class="form-label">Mensaje</label>
+                        <textarea name="mensaje" class="form-control"cols="3" rows="3" maxlength="5000" required></textarea>
+
+                        <div class="row mt-2">
+                            <?php $fecha = date("2022-11-01")?>
+                            <p class="m-0 mb-2">Establece el rango de fechas en que tu mensaje sera público</p>
+                            <div class="col">
+                                <label for="fechaInicio" class="form-label m-0">Fecha inicio</label>
+                                <input id="dateA" type="date" class="form-control" onchange="selectDate()" name="fechaInicio" min="">
+                            </div>
+                            <div class="col">
+                                <label for="fechaFin" class="form-label m-0">Fecha fin</label>
+                                <input id="dateB" type="date"  class="form-control" name="fechaFin" min="2022-11-01">
+                            </div>
                         </div>
+                            <input class="form-control mt-3" type="file" id="formImg"><!-- GESTIONAR DISEÑO Y METODO QUE SOLO ACEPTE IMAGENES HASTA UN CIERTO TAMAÑO Y SU TRANSFORMACIÓN PARA LA BD -->
                     </div>
-                        <input class="form-control mt-3" type="file" id="formImg"><!-- GESTIONAR DISEÑO Y METODO QUE SOLO ACEPTE IMAGENES HASTA UN CIERTO TAMAÑO Y SU TRANSFORMACIÓN PARA LA BD -->
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                    <button type="submit" class="btn btn-success">Publicar</button>
-                </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                        <button type="submit" class="btn btn-success">Publicar</button>
+                    </div>
                 </form>
             </div>
         </div>
