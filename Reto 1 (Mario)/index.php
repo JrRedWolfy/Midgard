@@ -125,7 +125,8 @@
     </div>
     <!-- ==================== FIN MODAL PUBLICACIÓN ==================== -->
 
-    <!-- ==================== MODAL USUARIO ==================== -->
+
+    <!--
     <div class="modal fade" id="publicacion" tabindex="-1" aria-labelledby="modalPublicación" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
@@ -133,11 +134,11 @@
                     <h5 class="modal-title">REALIZAR PUBLICACIÓN</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
                 </div>
-                <!-- CONTENIDO DEL MODAL PUBLICACIÓN -->
+                
                 <form method="post" action="base.php" onsubmit="return verificarForm();">
                 <div class="modal-body"> 
                     <p class="m-0 mb-2">Seleccione los departamentos a los que desea enviar la publicación</p>
-                    <div class="row mt-2 mb-0"><!-- VERIFICAR EL LARGO DE ASUNTO Y MENSAJE EN LA BASE DE DATOS PARA EVITAR ERRORES -->
+                    <div class="row mt-2 mb-0">
                         <?php include_once "base.php"; listarPantallas();?>
                     </div>
                     <button type="button" id="botonMarcar" class="btn btn-success btn-sm mt-2" onclick="marcarTodos()">Marcar todos</button><br>
@@ -152,14 +153,14 @@
                         <p class="m-0 mb-2">Establece el rango de fechas en que tu mensaje sera público</p>
                         <div class="col">
                             <label for="fechaInicio" class="form-label m-0">Fecha inicio</label>
-                            <input id="dateA" type="date" onchange="selectDate();" class="form-control" name="fechaInicio" min=""><!-- MIRAR COMO COLOCAR AQUI SIEMPRE LA FECHA ACTUAL -->
+                            <input id="dateA" type="date" onchange="selectDate();" class="form-control" name="fechaInicio" min="">
                         </div>
                         <div class="col">
                             <label for="fechaFin" class="form-label m-0">Fecha fin</label>
-                            <input id="dateB" type="date" class="form-control" name="fechaFin" min="2022-11-01"> <!-- EL MINIMO SERIA LA FECHA DE INICIO (SI ES POSIBLE QUE SE ACTUALICE AUTOMATICAMENTE) -->
+                            <input id="dateB" type="date" class="form-control" name="fechaFin" min="2022-11-01"> 
                         </div>
                     </div>
-                        <input class="form-control mt-3" type="file" name="publiButton"><!-- GESTIONAR DISEÑO Y METODO QUE SOLO ACEPTE IMAGENES HASTA UN CIERTO TAMAÑO Y SU TRANSFORMACIÓN PARA LA BD -->
+                        <input class="form-control mt-3" type="file" name="publiButton">
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
@@ -170,9 +171,7 @@
         </div>
     </div>
     
-    <!-- Pendiente -->
-    <!-- ==================== FIN MODAL USUARIO ==================== -->
-
+    -->
     <!-- ================ CUADRO SELECCION PANTALLA ================-->
     <!-- Pendiente -->
 

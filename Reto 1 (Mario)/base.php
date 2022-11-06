@@ -101,8 +101,8 @@
     }
 
 
-    //REALIZA UNA
-    function listarDepartamentos(){
+    //Actualizar, ALERTA DANGER DESACTUALIZADO
+    function listarDepartamentos(){ 
         //include_once "base.php";
 
         //CREO UN OBJETO DE CONEXIÓN USANDO LA FUNCIÓN DE CONEXIÓN() 
