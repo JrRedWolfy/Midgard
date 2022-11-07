@@ -100,7 +100,7 @@
         header("location:index.php");
     }
 
-    function newPublicacion($nombre = "david") { // borrar el autoasignado cuando reciba el nombre del usuario logeado
+    function newPublicacion() {
         // Estructura Insert: https://www.hostinger.es/tutoriales/como-usar-php-para-insertar-datos-en-mysql/
         // Esto podria ser util: https://www.geeksforgeeks.org/how-to-insert-form-data-into-database-using-php/
         // Podria utilizarse $_REQUEST['email'] ?¿
@@ -110,7 +110,7 @@
         $insertPublicacion = $safeConexion->prepare("INSERT INTO PUBLICACION (fechaCreacion, titulo, fechaInicio, fechaFin, mensaje, imagen, escritor, id) VALUES (:fechaCreacion, :titulo, :fechaInicio, :fechaFin, :mensaje, :imagen, :escritor, :id)");
 
         // La fecha de creacion:
-        $fechaActual = date('d/m/Y');
+        $fechaActual = date('Y/m/d');
 
         $my_Insert_Statement->bindParam(:fechaCreacion, $fechaActual);
         $my_Insert_Statement->bindParam(:titulo, $_POST['titulo']);
@@ -118,8 +118,8 @@
         $my_Insert_Statement->bindParam(:fechaFin, $_POST['fechaFin']);
         $my_Insert_Statement->bindParam(:mensaje, $_POST['mensaje']);
         $my_Insert_Statement->bindParam(:imagen, '');
-        $my_Insert_Statement->bindParam(:escritor, $nombre);
-        $my_Insert_Statement->bindParam(:id, 0);
+        $my_Insert_Statement->bindParam(:escritor, $_SESSION['id']);
+        $my_Insert_Statement->bindParam(:id, 1);
         
         // El nombre de la imagen sera (si la hay, img[numero id_Publicacion])
 
