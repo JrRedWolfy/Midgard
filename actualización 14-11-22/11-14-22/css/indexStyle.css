@@ -1,0 +1,110 @@
+body{
+    text-align: left;
+    /*background-color: #fde2ad;*/ /* DAVID NO LO DESCOMENTES... */
+}
+.margin_check{ /* PREGUNTAR PORQUE ml-num no funciona */
+    margin-left: 5px;
+}
+.navbar-center {
+    position: absolute;
+    left: 50%;
+    transform: translatex(-50%);
+}
+select{
+    background-color: #6c757d;
+    border: none;
+    border-radius: 5px;
+    padding: 5px;
+    color: white;
+}
+/*Esto es el Menu*/
+
+
+#menu{
+    background-color: #f26b00;
+    border-bottom: 5px solid #c13912;
+}
+
+
+/* MODELO DE SUBMENU CCS */
+
+section h2{
+    color: #333;
+    text-decoration: none;
+    font-size: 2rem;
+    font-weight: 300;
+    line-height: 1;
+    margin: 0 auto 1rem;
+    font-family: var(--font-sans-serif);
+}
+
+
+
+.submenu{	
+	margin-top: 0;
+    margin-bottom: 1.5rem;
+    text-align: left;
+    position: relative;
+    background: #fff;
+    box-shadow: 12px 15px 20px 0px rgba(46,61,73,0.15);
+    border-radius: 4px;
+    transition: all 0.3s ease;
+}
+
+.submenu .fa-solid, .submenu .fa{
+	position: relative;
+    font-size: 100px;
+}
+
+.icono_submenu{
+padding: 20px;
+}
+
+.submenu:hover {
+    box-shadow: 2px 4px 8px 0px rgba(46,61,73,0.2);
+}
+.submenu a {
+    width: 100%;
+    height: 100%;
+    display: block;
+    border-bottom: none;
+    text-decoration: none;
+    color: #525c65;
+    transition: color 0.3s ease;
+}
+.texto_submenu {
+    padding: 20px 24px;
+    height: 80px;
+    padding-bottom: 0.75rem;
+    position: relative;
+}
+
+#listas{
+    height: 100vh;
+    margin-top: 50px;
+    padding-top: 10px;
+    border-top: 5px solid #ecab78;
+    border-radius: 25px;
+    background-color: #fff4df;
+}
+
+.items{
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-left: -20px;
+    padding-right: -20px;
+    border-radius: 10px;
+    background-color: white;
+}
+
+/*  CARRUSEL DEL INDEX */
+.carruselPantalla{
+    width: 100px; /* Damos un ancho fijo para que no cambie su ancho al cambiar el texto */
+}
+
+footer{
+    border-top: 5px solid #c13912;
+    background-color: #f26b00;
+}
+
+
