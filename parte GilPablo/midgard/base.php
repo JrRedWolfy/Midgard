@@ -166,46 +166,22 @@ error_reporting(E_ALL);
         header("location: CRUD_USUARIOS/index.php");
     }
 
-    // if(isset($_GET['username'])) {
-    //     eliminarUsuario(); 
-    // }
+    if(isset($_GET['username'])) {
+        eliminarUsuario(); 
+    }
 
     function eliminarUsuario(){
 
         $conexion = conexion();
 
-            
+        $username = $_GET['username'];
+
+        $sqlDeleteUser = "DELETE FROM USUARIO WHERE username = '$username';";
+
+        $consulta=$conexion->prepare($sqlDeleteUser);
+        $consulta->execute();
         
-        $comprobar = "";
-        ?>
-
-        <script>
-            
-                
-                var opcion = confirm("¿Seguro que quieres eliminar el usuario " + "<?php echo $username; ?>" + "?");
-
-                var mensaje;
-
-                if (opcion == false) {
-                    window.location.href = "CRUD_USUARIOS/index.php";
-                }else{
-
-                    <?php  $comprobar = $username;?>
-                    window.location.href = "CRUD_USUARIOS/index.php";
-                }
-            
-
-        </script>
-        
-        <?php
-
-            if ($comprobar == $username) {
-                $sqlDeleteUser = "DELETE FROM USUARIO WHERE username = '$username';";
-
-                $consulta=$conexion->prepare($sqlDeleteUser);
-                $consulta->execute();
-        
-            }
+        header("location: CRUD_USUARIOS/index.php");
         
 
     }
