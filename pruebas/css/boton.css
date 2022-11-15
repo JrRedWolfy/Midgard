@@ -1,22 +1,22 @@
-#mainBox{
+.mainBox{
     width: 15%;
     border-radius: 5px;
     padding: 5px;
     margin: 40px 0px;
 }
 
-#pc{
+.pc{
     background-color: antiquewhite;
     padding: 15px 20px;
     border-top-left-radius: 5px;
 }
 
-#lateral{
+.lateral{
     display: flex;
     flex-direction: row;
 }
 
-#botones{
+.botones{
     display: flex;
     flex-direction: column-reverse;
     background-color: aquamarine;
@@ -59,33 +59,11 @@
     color: #565656;
 }
 
-#nombre{
+.nombre{
     background-color: burlywood;
     padding: 10px 0px;
     width: 100%;
     text-align: center;
     border-bottom-left-radius: 5px;
     border-bottom-right-radius: 5px;
-}
-
-.cd-popup {
-    opacity: 0;
-    visibility: hidden;
-    transition: opacity 0.3s 0s, visibility 0s 0.3s;
-}
-  
-.cd-popup .is-visible {
-    opacity: 1;
-    visibility: visible;
-    transition: opacity 0.3s 0s, visibility 0s 0s;
-}
-  
-.cd-popup-container {
-    transform: translateY(-40px);
-    transition-property: transform;
-    transition-duration: 0.3s;
-}
-  
-.is-visible .cd-popup-container {
-    transform: translateY(0);
 }
