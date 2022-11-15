@@ -15,6 +15,7 @@
     <!-- FONTAWESOME LIBRARY -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
     <!-- BOOTSTRAP LIBRARY -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <!-- HOJA DE ESTILOS -->
     <link rel="stylesheet" href="css/preloader.css">
@@ -61,7 +62,7 @@
 
             // echo $nfilas;
 
-            print_r($publicaciones);
+            // print_r($publicaciones);
         ?>
 
         <table class="table">
@@ -99,6 +100,61 @@
             </tbody>
         </table>
         
+
+        <!-- Button trigger modal -->
+        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#publicacion">
+            Añadir Publicacion
+        </button>
+
+        <!-- ==================== MODAL PUBLICACION ==================== -->
+        <div class="modal fade" id="publicacion" tabindex="-1">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">AÑADIR NUEVA PUBLICACION</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                    </div>
+                    <!-- CONTENIDO DEL MODAL PUBLICACIÓN -->
+                <form method="post" action="../base.php" enctype="multipart/form-data" onsubmit="return verificarForm();">
+                <div class="modal-body"> 
+                    <p class="m-0 mb-2">Seleccione las pantallas que mostraran su mensaje</p>
+                    <div class="row mt-2 mb-0"><!-- VERIFICAR EL LARGO DE ASUNTO Y MENSAJE EN LA BASE DE DATOS PARA EVITAR ERRORES -->
+                        <?php include_once "../base.php"; listarPantallas();?>
+                    </div>
+                    <button type="button" id="botonMarcar" class="btn btn-success btn-sm mt-2" onclick="marcarTodos()">Marcar todos</button><br>
+                    
+                    <label for="asunto" class="form-label mt-2">Asunto</label>
+                    <input type="text" class="form-control" id="asunto" name="asunto" required>
+
+                    <label for="mensaje" class="form-label">Mensaje</label>
+                    <textarea name="mensaje" class="form-control"cols="3" rows="3" maxlength="5000" name="mensaje" required></textarea>
+
+                    <div class="row mt-2">
+                        <p class="m-0 mb-2">Establece el rango de fechas en que tu mensaje sera público</p>
+                        <div class="col">
+                            <label for="fechaInicio" class="form-label m-0">Fecha inicio</label>
+                            <input id="dateA" type="date" onchange="selectDate();" class="form-control" name="fechaInicio" min="">
+                        </div>
+                        <div class="col">
+                            <label for="fechaFin" class="form-label m-0">Fecha fin</label>
+                            <input id="dateB" type="date" class="form-control" name="fechaFin" min="">
+                        </div>
+                    </div>
+                        <input class="form-control mt-3" type="file" name="publiImg"><!-- GESTIONAR DISEÑO Y METODO QUE SOLO ACEPTE IMAGENES HASTA UN CIERTO TAMAÑO Y SU TRANSFORMACIÓN PARA LA BD -->
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="submit" class="btn btn-success" name="publiButton">Publicar</button>
+                </div>
+                </form>
+                </div>
+            </div>
+        </div>
+
+        <?php  $conexion = null?>
+
+        <!-- ==================== FIN MODAL PUBLICACION ==================== -->
+
     </div>
     
 </body>

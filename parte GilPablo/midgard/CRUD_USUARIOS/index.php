@@ -67,7 +67,7 @@
 
             
         ?>
-        <form  method="post">
+        
             <table class="table">
                 <thead>
                     <tr>
@@ -89,13 +89,12 @@
                             <td><?php if ($users['id_rol'] == 1) {echo "Admin";} elseif ($users['id_rol'] == 2) {echo "Aprobador";}elseif ($users['id_rol'] == 3) {echo "Publicador";}else {echo "-";}?></td>
                             <td>
                                 <a href="../base.php?username=<?php echo $users['username'];?>"><img src="../img/trash.svg"></a>
-                                <a href="editarUsuario.php?usernameEdit=<?php echo $users['username'];?>&claveEdit=<?php echo $users['clave'];?>&nombreEdit=<?php echo $users['nombre'];?>&emailEdit=<?php echo $users['email'];?>&dniEdit=<?php echo $users['dni'];?>"><img src="../img/pencil-square.svg"></a>
+                                <a href="editarUsuario.php?usernameEdit=<?php echo $users['username'];?>&claveEdit=<?php echo $users['clave'];?>&nombreEdit=<?php echo $users['nombre'];?>&emailEdit=<?php echo $users['email'];?>&dniEdit=<?php echo $users['dni'];?>&rolEdit=<?php echo $users['id_rol']?>"><img src="../img/pencil-square.svg"></a>
                             </td>
                         </tr>
                     <?php endforeach ?>
                 </tbody>
             </table>
-        </form>
         
 
 

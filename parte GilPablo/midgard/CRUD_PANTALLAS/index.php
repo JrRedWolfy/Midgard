@@ -62,7 +62,7 @@
 
             // echo $nfilas;
 
-            print_r($pantallas);
+            // print_r($pantallas);
         ?>
 
         <table class="table">

@@ -154,10 +154,19 @@ error_reporting(E_ALL);
         $nombre = $_POST['fullname'];
         $email = $_POST['email'];
         $dni = $_POST['dni'];
-        $id_rol = $_POST['id_rol'];
+        
+        if ($_POST['id_rol']=="select") {
+            $id_rol = NULL;
+        }elseif ($_POST['id_rol']=="admin") {
+            $id_rol = 1;
+        }elseif ($_POST['id_rol']=="aprobador") {
+            $id_rol = 2;
+        }elseif ($_POST['id_rol']=="publicador") {
+            $id_rol = 3;
+        }
 
 
-        $sqlAddUser = "INSERT INTO USUARIO (username, clave, nombre, email, dni, id_rol) VALUES ('$username', '$clave', '$nombre', '$email', '$dni', 1);";
+        $sqlAddUser = "INSERT INTO USUARIO (username, clave, nombre, email, dni, id_rol) VALUES ('$username', '$clave', '$nombre', '$email', '$dni', '$id_rol');";
         echo $sqlAddUser;
 
         $consulta=$conexion->prepare($sqlAddUser);
@@ -206,27 +215,27 @@ error_reporting(E_ALL);
             
              //SOLO SE EJECUTA SI SE HA SUBIDO UNA IMAGEN
             
-            if(isset($_FILES['publiImg']['name'])){
+            // if(isset($_FILES['publiImg']['name'])){
                 
-                //ASIGNAMOS EL NOMBRE DEL ARCHIVO SUBIDO A LA VARIABLE IMG
-                $img = $_FILES['publiImg']['name'];
-                //echo $img;
-                //RECIBIMOS LOS DATOS DE LA IMAGEN
-                $nombreImg = $_FILES['publiImg']['name'];
-                $tipoImg = $_FILES['publiImg']['type'];
-                $sizeImg = $_FILES['publiImg']['size'];
+            //     //ASIGNAMOS EL NOMBRE DEL ARCHIVO SUBIDO A LA VARIABLE IMG
+            //     $img = $_FILES['publiImg']['name'];
+            //     //echo $img;
+            //     //RECIBIMOS LOS DATOS DE LA IMAGEN
+            //     $nombreImg = $_FILES['publiImg']['name'];
+            //     $tipoImg = $_FILES['publiImg']['type'];
+            //     $sizeImg = $_FILES['publiImg']['size'];
 
-                //if ($sizeImg <=1000000)
-                //RUTA DE LA CARPETA DESTINO EN EL SERVIDOR
-                $ruta_destino = $_SERVER['DOCUMENT_ROOT'].'/midgard/img/';
-                //echo "$ruta_destino";
+            //     //if ($sizeImg <=1000000)
+            //     //RUTA DE LA CARPETA DESTINO EN EL SERVIDOR
+            //     $ruta_destino = $_SERVER['DOCUMENT_ROOT'].'/midgard/img/';
+            //     //echo "$ruta_destino";
 
-                //MOVEMOS LA IMAGEN DEL DIRECTORIO TEMPORAL AL DIRECTIORIO ESCOGIDO
-                move_uploaded_file($_FILES['publiImg']['tmp_name'], $ruta_destino.$nombreImg);
-            }else{
-                echo "HOLA";
-                $img = NULL;
-            }
+            //     //MOVEMOS LA IMAGEN DEL DIRECTORIO TEMPORAL AL DIRECTIORIO ESCOGIDO
+            //     move_uploaded_file($_FILES['publiImg']['tmp_name'], $ruta_destino.$nombreImg);
+            // }else{
+            //     echo "HOLA";
+            //     $img = NULL;
+            // }
 
             //OBTENEMOS VARIABLES EN FUNCIÓN DEL ROL
             if($_SESSION['rol'] == "1" ||  $_SESSION['rol'] == "2"){

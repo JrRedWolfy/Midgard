@@ -14,9 +14,11 @@
             $nombre = $_POST['nombre'];
             $email = $_POST['email'];
             $dni = $_POST['dni'];
+            $id_rol = $_POST['rol'];
             
-            $sqlEditUser = "UPDATE USUARIO SET clave = '$clave', nombre = '$nombre', email = '$email', dni = '$dni' WHERE username = '$username';";
+            $sqlEditUser = "UPDATE USUARIO SET clave = '$clave', nombre = '$nombre', email = '$email', dni = '$dni', id_rol = $id_rol WHERE username = '$username';";
 
+            
             $consulta=$conexion->prepare($sqlEditUser);
             $consulta->execute();
 
@@ -61,6 +63,35 @@
 
         <label for="dni" >DNI</label>
         <input type="text" id="dni" name="dni" value="<?php echo $_GET['dniEdit']; ?>"><br><br>
+
+        <select name="rol" id="rol">
+            <?php if ($_GET['rolEdit']==NULL) { ?>
+                <option value="NULL" hidden selected>Seleccione un rol</option>
+                <option value="1">Admin</option>
+                <option value="2">Aprobador</option>
+                <option value="3">Publicador</option>
+                <?php
+            }elseif ($_GET['rolEdit']==1) { ?>
+                <option value="NULL">Seleccione un rol</option>
+                <option value="1" selected>Admin</option>
+                <option value="2">Aprobador</option>
+                <option value="3">Publicador</option>
+                <?php
+            }elseif ($_GET['rolEdit']==2) { ?>
+                <option value="NULL">Seleccione un rol</option>
+                <option value="1" >Admin</option>
+                <option value="2" selected>Aprobador</option>
+                <option value="3">Publicador</option>
+                <?php
+            }elseif ($_GET['rolEdit']==3) { ?>
+                <option value="NULL">Seleccione un rol</option>
+                <option value="1">Admin</option>
+                <option value="2">Aprobador</option>
+                <option value="3" selected>Publicador</option>
+                <?php
+            }
+            ?>
+        </select><br><br>
 
         <input type='submit' name='guardar' value='GUARDAR CAMBIOS' id='guardar'>
         <input type='submit' name='volver' value='VOLVER' id='volver'>
