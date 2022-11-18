@@ -365,23 +365,53 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
                 </div>
                 <!-- CONTENIDO DEL MODAL USUARIO -->
-                <form method="post" action="base.php">
-                <div class="modal-body"> 
-                    
-                    <label for="username" class="form-label mt-2">Username</label>
-                    <input type="text" class="form-control" id="username" name="username"required>
+                <form id="formUser" method="post" action="base.php" novalidate>
+                <div class="modal-body">
+                
+                    <div class="grupo" id="grupo__username">
+                        <label for="username" class="form-label mt-2">Username</label>
+                        <div class="grupo-input" id="input__username">
+                            <input type="text" class="form-control" id="username" name="username"required>
+                            <i class="validacion-estado fas fa-times-circle"></i>
+                        </div>
+                        <p class="input-error">El usuario tiene que ser de 4 a 16 dígitos y solo puede contener numeros, letras y guion bajo.</p>
+                    </div>
 
-                    <label for="clave" class="form-label mt-2">Contraseña</label>
-                    <input type="text" class="form-control" id="clave" name="clave" required>
+                    <div class="grupo" id="grupo__clave">
+                        <label for="clave" class="form-label mt-2">Contraseña</label>
+                        <div class="grupo-input" id="input__clave">
+                        <input type="text" class="form-control" id="clave" name="clave" required>
+                        <i class="validacion-estado fas fa-times-circle"></i>
+                        </div>
+                        <p class="input-error">El usuario tiene que ser de 4 a 16 dígitos y solo puede contener numeros, letras y guion bajo.</p>
+                    </div>
 
-                    <label for="fullname" class="form-label mt-2">Nombre Completo</label>
-                    <input type="text" class="form-control" id="fullname" name="fullname" required>
+                    <div class="grupo" id="grupo__fullname">
+                        <label for="fullname" class="form-label mt-2">Nombre Completo</label>
+                        <div class="grupo-input" id="input__fullname">
+                            <input type="text" class="form-control" id="fullname" name="fullname" required>
+                            <i class="validacion-estado fas fa-times-circle"></i>
+                        </div>
+                        <p class="input-error">El usuario tiene que ser de 4 a 16 dígitos y solo puede contener numeros, letras y guion bajo.</p>
+                    </div>
 
-                    <label for="email" class="form-label mt-2">Email</label>
-                    <input type="text" class="form-control" id="email" name="email" required>
-                    
-                    <label for="dni" class="form-label mt-2">DNI</label>
-                    <input type="text" class="form-control" id="dni" name="dni" required>
+                    <div class="grupo" id="grupo__email">
+                        <label for="email" class="form-label mt-2">Email</label>
+                        <div class="grupo-input" id="input__email">
+                            <input type="text" class="form-control" id="email" name="email" required>
+                            <i class="validacion-estado fas fa-times-circle"></i>
+                        </div>
+                        <p class="input-error">El usuario tiene que ser de 4 a 16 dígitos y solo puede contener numeros, letras y guion bajo.</p>
+                    </div>
+
+                    <div class="grupo" id="grupo__dni">
+                        <label for="dni" class="form-label mt-2">DNI</label>
+                        <div class="grupo-input" id="input__dni">
+                        <input type="text" class="form-control" id="dni" name="dni" required>
+                        <i class="validacion-estado fas fa-times-circle"></i>
+                        </div>
+                        <p class="input-error">El usuario tiene que ser de 4 a 16 dígitos y solo puede contener numeros, letras y guion bajo.</p>
+                    </div>
                     
                     <select name="rol" id="rol" class="mt-2">
                         <option value="select" hidden selected>Seleccione un rol</option>
@@ -390,6 +420,10 @@
                         <option value="3">Publicador</option>
                     </select> 
                 </div>
+
+                <div class="formulario__mensaje" id="formulario__mensaje">
+				    <p><i class="fas fa-exclamation-triangle"></i> <b>Error:</b> Por favor rellena el formulario correctamente. </p>
+			    </div>
 
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>

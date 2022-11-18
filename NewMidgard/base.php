@@ -208,15 +208,18 @@
             echo '<div class="mt-5 col-xl-2 col-lg-3 col-md-4 col-sm-6 col-6">';
                 echo '<div class="elemento">';
                     echo '<div class="lateral">';
-                        echo '<div class="news">';
-                            echo '<i class="fa-solid fa-newspaper"></i>';
-                        echo '</div>';
                         echo '<div class="botones">';
                             echo '<button class="boton red onRed" title="Eliminar" name="'.$resultado["id_publicacion"].'"><i class="fa-solid fa-trash-can"></i></button><button class="boton blue onBlue" title="Editar" name="'.$resultado["id_publicacion"].'"><i class="fa-solid fa-pencil"></i></button>';
                         echo '</div>';
-                        // echo '<div class="botones">';
-                        //     echo '<button class="boton red onRed" title="Eliminar"><i class="fa-solid fa-trash-can"></i></button><button class="boton blue onBlue" title="Editar"><i class="fa-solid fa-pencil"></i></button>';
-                        // echo '</div>';
+
+                        echo '<div class="news">';
+                            echo '<i class="fa-solid fa-newspaper"></i>';
+                        echo '</div>';
+                        
+                        echo '<div class="botones">';
+                            echo '<button class="boton red onRed" title="Eliminar" name="'.$resultado["id_publicacion"].'"><i class="fa-solid fa-trash-can"></i></button><button class="boton blue onBlue" title="Editar" name="'.$resultado["id_publicacion"].'"><i class="fa-solid fa-pencil"></i></button>';
+                        echo '</div>';
+                        
                     echo '</div>';
         
                     echo '<div class="nombre">';
@@ -304,6 +307,21 @@
         }
 
         
+    }
+
+    function takeUsernames(){
+
+        $con = conexion();
+
+        //REALIZAMOS LA CONSULTA FILTRADA POR USUARIO
+        $consulta="SELECT username FROM USUARIO";
+        
+        //EJECUTAMOS LA CONSULTA SQL (EL RESULTADO VIENE EN UN OBJETO DE TIPO STATEMENT)
+        $stm = $con->query($consulta);
+
+        $names = $stm->fetchAll();
+
+        return $names;
     }
 
     function miPerfil(){

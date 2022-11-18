@@ -201,7 +201,7 @@ function showPassField(){
     let passField;
     if (action == ""){
         passField = '<label for="clave" class="form-label mt-2">Contraseña Actual</label><input type="password" class="form-control" id="clave" name="clave" required><label for="clave" class="form-label mt-2">Contraseña Nueva</label><input type="password" class="form-control" id="clave" name="clave" required><label for="clave" class="form-label mt-2">Repetir Contraseña Nueva</label><input type="password" class="form-control" id="clave" name="clave" required>'
-        document.getElementById("changePass").innerHTML = '<i class="fas fa-lock"></i> Anular';
+        document.getElementById("changePass").innerHTML = '<i class="fas fa-lock"></i> Cancelar';
         document.getElementById("confirmarPass").style.display = "block";
     } else {
         passField = "";
@@ -258,6 +258,109 @@ function prev(){
     }
 }
 
+//  !!!   WARZONE   !!!
+//  !!!   WARZONE   !!!
+//  !!!   WARZONE   !!!
+//  !!!   WARZONE   !!!
+
+/*Bien*/
+const formulario = document.getElementById('formUser');
+const inputs = document.querySelectorAll('#formUser input');
+
+const expresiones = { /*Bien*/
+	username: /^[a-zA-Z0-9\_\-]{4,50}$/, // Letras, numeros, guion y guion_bajo
+	fullname: /^[a-zA-ZÀ-ÿ\s]{1,100}$/, // Letras y espacios, pueden llevar acentos.
+	clave: /^.{4,50}$/, // 4 a 12 digitos.
+	email: /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/,
+	dni: /^\d{8}[A-Z]$/ // 8 digitos.
+}
+
+const campos = { /*Bien*/
+	username: false,
+	fullname: false,
+	clave: false,
+	email: false,
+	dni: false
+}
+
+const validarFormulario = (e) => { /*Bien*/
+	switch (e.target.name) {
+		case "username":
+			validarCampo(expresiones.username, e.target, 'username');
+		break;
+		case "fullname":
+			validarCampo(expresiones.fullname, e.target, 'fullname');
+		break;
+		case "clave":
+			validarCampo(expresiones.clave, e.target, 'clave');
+		break;
+		case "email":
+			validarCampo(expresiones.email, e.target, 'email');
+		break;
+		case "dni":
+			validarCampo(expresiones.dni, e.target, 'dni');
+		break;
+	}
+}
+
+const validarCampo = (expresion, input, campo) => {
+	if(expresion.test(input.value)){
+		document.getElementById(`grupo__${campo}`).classList.remove('formulario__grupo-incorrecto');
+		document.getElementById(`grupo__${campo}`).classList.add('formulario__grupo-correcto');
+		document.querySelector(`#grupo__${campo} i`).classList.add('fa-check-circle');
+		document.querySelector(`#grupo__${campo} i`).classList.remove('fa-times-circle');
+		document.querySelector(`#grupo__${campo} .input-error`).classList.remove('input-error-activo');
+		campos[campo] = true;
+	} else {
+		document.getElementById(`grupo__${campo}`).classList.add('formulario__grupo-incorrecto');
+		document.getElementById(`grupo__${campo}`).classList.remove('formulario__grupo-correcto');
+		document.querySelector(`#grupo__${campo} i`).classList.add('fa-times-circle');
+		document.querySelector(`#grupo__${campo} i`).classList.remove('fa-check-circle');
+		document.querySelector(`#grupo__${campo} .input-error`).classList.add('input-error-activo');
+		campos[campo] = false;
+	}
+}
+
+inputs.forEach((input) => { /*Bien*/
+	input.addEventListener('onfocusout', validarFormulario);
+	input.addEventListener('blur', validarFormulario);
+});
+
+formulario.addEventListener('submit', (e) => {
+	e.preventDefault();
+    let rolSelected = false;
+
+	const rol = document.getElementById('rol');
+    alert(rol.value);
+    if(rol.value != "select"){
+        alert("oky");
+        rolSelected = true;
+    }
+
+
+	if(campos.username && campos.fullname && campos.clave && campos.email && campos.dni && rolSelected ){
+		formulario.reset();
+
+		document.getElementById('mensaje-exito').classList.add('mensaje-exito-activo');
+		setTimeout(() => {
+			document.getElementById('mensaje-exito').classList.remove('mensaje-exito-activo');
+		}, 5000);
+
+		document.querySelectorAll('.formulario__grupo-correcto').forEach((icono) => {
+			icono.classList.remove('formulario__grupo-correcto');
+		});
+	} else {
+		document.getElementById('formulario__mensaje').classList.add('mensaje-activo');
+	}
+});
+
+
+
+
+
+
+
+// WARZONE END
 
 // CORRIGE MAC ADDRESS
 var macAddress = document.getElementById("mac");
