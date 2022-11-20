@@ -273,13 +273,13 @@
                     <h5 class="modal-title">Mi Perfil</h5>
                     <button type="button" class="btnModal" data-bs-dismiss="modal" aria-label="Cerrar"><i class="icono fa fa-times fa-2x" aria-hidden="true"></i></button>
                 </div>
-                <!-- CONTENIDO DEL MODAL USUARIO -->
+                <!-- CONTENIDO DEL MODAL PERFIL -->
 
                 <form method="post" action="#"><!-- CAMBIAR A DONDE SEA PRECISO -->
 
                     <div class="modal-body"> 
 
-                        <label id="rol"><?php switch($_SESSION['rol']){case 1:echo "Administrador";break;case 2:echo "Aprobador";break;case 3:echo "Publicador";break;default:echo "Sin Rol";break;}?></label>
+                        <label id="privilegios"><?php switch($_SESSION['rol']){case 1:echo "Administrador";break;case 2:echo "Aprobador";break;case 3:echo "Publicador";break;default:echo "Sin Rol";break;}?></label>
                         <hr class="divisor"></hr>
 
                         <label for="fullname" class="form-label mt-2">Nickname: <?php echo $_SESSION['id'];?></label>
@@ -318,7 +318,7 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
                 </div>
                 <!-- CONTENIDO DEL MODAL PUBLICACIÓN -->
-                <form method="post" action="base.php" enctype="multipart/form-data" onsubmit="return verificarForm();">
+                <form id="formPubli" method="post" action="base.php" novalidate>
                 <div class="modal-body"> 
                     <p class="m-0 mb-2">Seleccione las pantallas que mostraran su mensaje</p>
                     <div class="row mt-2 mb-0"><!-- VERIFICAR EL LARGO DE ASUNTO Y MENSAJE EN LA BASE DE DATOS PARA EVITAR ERRORES -->
@@ -326,25 +326,45 @@
                     </div>
                     <button type="button" id="botonMarcar" class="btn btn-success btn-sm mt-2" onclick="marcarTodos()">Marcar todos</button><br>
                     
-                    <label for="asunto" class="form-label mt-2">Asunto</label>
-                    <input type="text" class="form-control" id="asunto" name="asunto" required>
+                    <div class="grupo" id="grupo__asunto">
+                        <label for="asunto" name="asunto" class="form-label mt-2">Asunto</label>
+                        <div class="grupo-input" id="input__asunto">
+                            <input type="text" class="form-control" id="asunto" name="asunto" required>
+                            <i class="validacion-estado fas fa-times-circle"></i>
+                        </div>
+                        <p class="input-error">El asunto es obligatorio y debe conformarse por al menos 4 digitos.</p>
+                    </div>
 
                     <label for="mensaje" class="form-label">Mensaje</label>
-                    <textarea name="mensaje" class="form-control"cols="3" rows="3" maxlength="5000" name="mensaje" required></textarea>
+                    <textarea id="mensaje" class="form-control"cols="3" rows="3" maxlength="5000" name="mensaje" required></textarea>
 
                     <div class="row mt-2">
                         <p class="m-0 mb-2">Establece el rango de fechas en que tu mensaje sera público</p>
-                        <div class="col">
+                        <div id="grupo__dateA" class="col">
                             <label for="fechaInicio" class="form-label m-0">Fecha inicio</label>
-                            <input id="dateA" type="date" onchange="selectDate();" class="form-control" name="fechaInicio" min="">
+                            <div class="grupo-input" id="input__dateA">
+                                <input id="dateA" type="date" onchange="selectDate();" class="form-control" name="fechaInicio" min="">
+                                <i class="validacion-estado fas fa-times-circle"></i>
+                            </div>
+                            <p class="input-error">Campo Obligatorio.</p>
                         </div>
-                        <div class="col">
+
+                        <div id="campo__dateB" class="col">
                             <label for="fechaFin" class="form-label m-0">Fecha fin</label>
-                            <input id="dateB" type="date" class="form-control" name="fechaFin" min="" disabled>
+                            <div class="grupo-input" id="input__dateB">
+                                <input id="dateB" type="date" class="form-control" name="fechaFin" min="" disabled>
+                                <i class="validacion-estado fas fa-times-circle"></i>
+                            </div>
+                            <p class="input-error">Campo Obligatorio.</p>
                         </div>
                     </div>
-                        <input class="form-control mt-3" type="file" name="publiImg"><!-- GESTIONAR DISEÑO Y METODO QUE SOLO ACEPTE IMAGENES HASTA UN CIERTO TAMAÑO Y SU TRANSFORMACIÓN PARA LA BD -->
-                </div>
+                        <input class="form-control mt-3" type="file" id="publiImg" name="publiImg"><!-- GESTIONAR DISEÑO Y METODO QUE SOLO ACEPTE IMAGENES HASTA UN CIERTO TAMAÑO Y SU TRANSFORMACIÓN PARA LA BD -->
+                    </div>
+
+                    <div class="formulario__mensaje" id="formulario__publicacion">
+				        <p><i class="fas fa-exclamation-triangle"></i> <b>Error:</b> Por favor rellena el formulario correctamente. </p>
+			        </div>
+
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
                     <button type="submit" class="btn btn-success" name="publiButton">Publicar</button>
@@ -374,16 +394,16 @@
                             <input type="text" class="form-control" id="username" name="username"required>
                             <i class="validacion-estado fas fa-times-circle"></i>
                         </div>
-                        <p class="input-error">El usuario tiene que ser de 4 a 16 dígitos y solo puede contener numeros, letras y guion bajo.</p>
+                        <p class="input-error">El usuario tiene que ser de 4 a 20 dígitos y solo puede contener numeros, letras o guion.</p>
                     </div>
 
                     <div class="grupo" id="grupo__clave">
                         <label for="clave" class="form-label mt-2">Contraseña</label>
                         <div class="grupo-input" id="input__clave">
-                        <input type="text" class="form-control" id="clave" name="clave" required>
-                        <i class="validacion-estado fas fa-times-circle"></i>
+                            <input type="text" class="form-control" id="clave" name="clave" required>
+                            <i class="validacion-estado fas fa-times-circle"></i>
                         </div>
-                        <p class="input-error">El usuario tiene que ser de 4 a 16 dígitos y solo puede contener numeros, letras y guion bajo.</p>
+                        <p class="input-error">La contraseña debe ser de 6 a 20 digitos y contener al menos un numero.</p>
                     </div>
 
                     <div class="grupo" id="grupo__fullname">
@@ -392,7 +412,7 @@
                             <input type="text" class="form-control" id="fullname" name="fullname" required>
                             <i class="validacion-estado fas fa-times-circle"></i>
                         </div>
-                        <p class="input-error">El usuario tiene que ser de 4 a 16 dígitos y solo puede contener numeros, letras y guion bajo.</p>
+                        <p class="input-error">Su nombre debe tener de 4 a 50 dígitos y solo puede contener letras y espacios.</p>
                     </div>
 
                     <div class="grupo" id="grupo__email">
@@ -401,7 +421,7 @@
                             <input type="text" class="form-control" id="email" name="email" required>
                             <i class="validacion-estado fas fa-times-circle"></i>
                         </div>
-                        <p class="input-error">El usuario tiene que ser de 4 a 16 dígitos y solo puede contener numeros, letras y guion bajo.</p>
+                        <p class="input-error">El email es incorrecto.</p>
                     </div>
 
                     <div class="grupo" id="grupo__dni">
@@ -410,7 +430,7 @@
                         <input type="text" class="form-control" id="dni" name="dni" required>
                         <i class="validacion-estado fas fa-times-circle"></i>
                         </div>
-                        <p class="input-error">El usuario tiene que ser de 4 a 16 dígitos y solo puede contener numeros, letras y guion bajo.</p>
+                        <p class="input-error">Un DNI se compone de 8 numeros y una letra.</p>
                     </div>
                     
                     <select name="rol" id="rol" class="mt-2">
@@ -444,18 +464,38 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
                 </div>
                 <!-- CONTENIDO DEL MODAL PANTALLA -->
-                <form method="post" action="base.php">
+                <form method="post" action="base.php" id="formPantalla">
                 <div class="modal-body"> 
                     
-                    <label for="nombre" class="form-label mt-2" >Nombre Pantalla</label>
-                    <input type="text" class="form-control" id="nombre"  name="nombre" placeholder="Ej: LOSCOS 1 " maxlength="12" required>
+                    <div class="grupo" id="grupo__nombre">
+                        <label for="nombre" class="form-label mt-2" >Nombre Pantalla</label>
+                        <div class="grupo-input" id="input__nombre">
+                            <input type="text" class="form-control" id="nombre"  name="nombre" placeholder="Ej: LOSCOS 1 " maxlength="12" required>
+                            <i class="validacion-estado fas fa-times-circle"></i>
+                        </div>
+                        <p class="input-error">El nombre de pantalla debe tener al menos 3 caracteres.</p>
+                    </div>
 
+                    <div class="grupo" id="grupo__mac">
                     <label for="mac" class="form-label mt-2">Dirección MAC</label>
-                    <input type="text" class="form-control" id="mac" name="mac" placeholder="a1:b2:c3:d4:e5:f6" maxlength="17" style="text-transform: uppercase" required>
-
+                        <div class="grupo-input" id="input__mac">
+                            <input type="text" class="form-control" id="mac" name="mac" placeholder="a1:b2:c3:d4:e5:f6" maxlength="17" style="text-transform: uppercase" required>
+                            <i class="validacion-estado fas fa-times-circle"></i>
+                        </div>
+                        <p class="input-error">Introduzca una Mac valida.</p>
+                    </div>
+                   
+                    <div class="grupo" id="grupo__ubicacion">
                     <label for="ubicacion" class="form-label mt-2">Ubicación Pantalla</label>
-                    <textarea name="ubicacion" class="form-control" cols="3" rows="3" maxlength="500" placeholder="Ej: Edificio Botánico LOSCOS" required></textarea>
-
+                        <div class="grupo-input" id="input__mac">
+                        <textarea name="ubicacion" id="ubicacion" class="form-control" cols="3" rows="3" maxlength="500" placeholder="Ej: Edificio Botánico LOSCOS" required></textarea>
+                            <i class="validacion-estado fas fa-times-circle"></i>
+                        </div>
+                        <p class="input-error">Introduce de forma breve donde se ubica.</p>
+                    </div>
+                    <div class="formulario__mensaje" id="formulario__pantalla">
+                    <p><i class="fas fa-exclamation-triangle"></i> <b>Error:</b> Por favor rellena el formulario correctamente. </p>
+			        </div>
                 </div>
                 <div class="modal-footer">
                     <button type="reset" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>

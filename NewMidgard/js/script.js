@@ -258,10 +258,10 @@ function prev(){
     }
 }
 
-//  !!!   WARZONE   !!!
-//  !!!   WARZONE   !!!
-//  !!!   WARZONE   !!!
-//  !!!   WARZONE   !!!
+//  !!!     WARZONE     !!!
+//  !!! VALIDAR_USUARIO !!!
+//  !!!     WARZONE     !!!
+//  !!!     WARZONE     !!!
 
 /*Bien*/
 const formulario = document.getElementById('formUser');
@@ -269,8 +269,8 @@ const inputs = document.querySelectorAll('#formUser input');
 
 const expresiones = { /*Bien*/
 	username: /^[a-zA-Z0-9\_\-]{4,50}$/, // Letras, numeros, guion y guion_bajo
-	fullname: /^[a-zA-ZÀ-ÿ\s]{1,100}$/, // Letras y espacios, pueden llevar acentos.
-	clave: /^.{4,50}$/, // 4 a 12 digitos.
+	fullname: /^[a-zA-ZÀ-ÿ\s]{4,50}$/, // Letras y espacios, pueden llevar acentos.
+	clave: /^(?=.*[0-9])[a-zA-Z0-9!@#$%^&*]{6,20}$/, // 6 a 20 digitos. minimo 1 numero
 	email: /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/,
 	dni: /^\d{8}[A-Z]$/ // 8 digitos.
 }
@@ -330,10 +330,9 @@ formulario.addEventListener('submit', (e) => {
 	e.preventDefault();
     let rolSelected = false;
 
-	const rol = document.getElementById('rol');
-    alert(rol.value);
-    if(rol.value != "select"){
-        alert("oky");
+    let rol = document.getElementById('rol');
+    
+    if (rol.value != "select"){
         rolSelected = true;
     }
 
@@ -353,14 +352,174 @@ formulario.addEventListener('submit', (e) => {
 		document.getElementById('formulario__mensaje').classList.add('mensaje-activo');
 	}
 });
+// WARZONE END VALIDACION USUARIO
+
+
+//  !!!     WARZONE     !!!
+//  !!! VALIDAR_MENSAJE !!!
+//  !!!     WARZONE     !!!
+//  !!!     WARZONE     !!!
+
+/*Bien*/
+const formMensaje = document.getElementById('formPubli');
+const mensajeInputs = document.querySelectorAll('#formPubli input');
+
+const mensajeExpresiones = { 
+	asunto: /^[0-9a-zA-Z!@#$%^&*À-ÿ\s]{4,30}$/, // Letras, numeros, espacios... minimo 4, hasta 30
+	fecha: /^\d{4}-\d{2}-\d{2}$/, // regex Fecha
+    archivo: (/\.(gif|jpe?g|tiff?|png|webp|bmp|pdf)$/i) // Archivo imagen
+}
+
+const mensajeCampos = {
+	asunto: false,
+	dateA: false,
+	dateB: false,
+    mensaje: false,
+    publiImg: false
+    
+}
+
+const validarFormMensaje = (e) => {
+	switch (e.target.name) {
+		case "asunto":
+			validarCampoMensaje(mensajeExpresiones.asunto, e.target, 'asunto');
+		break;
+		case "dateA":
+			validarCampoMensaje(mensajeExpresiones.fecha, e.target, 'dateA');
+		break;
+		case "dateB":
+			validarCampoMensaje(mensajeExpresiones.fecha, e.target, 'dateB');
+		break;
+        case "publiImg":
+			validarCampoMensaje(mensajeExpresiones.archivo, e.target, 'publiImg');
+		break;
+	}
+}
+
+const validarCampoMensaje = (expresion, input, campo) => {
+	if(expresion.test(input.value)){
+        alert('Grovyle');
+		document.getElementById(`grupo__${campo}`).classList.remove('formulario__grupo-incorrecto');
+		document.getElementById(`grupo__${campo}`).classList.add('formulario__grupo-correcto');
+		document.querySelector(`#grupo__${campo} i`).classList.add('fa-check-circle');
+		document.querySelector(`#grupo__${campo} i`).classList.remove('fa-times-circle');
+		document.querySelector(`#grupo__${campo} .input-error`).classList.remove('input-error-activo');
+		mensajeCampos[campo] = true;
+	} else {
+        alert('Gengar');
+		document.getElementById(`grupo__${campo}`).classList.add('formulario__grupo-incorrecto');
+		document.getElementById(`grupo__${campo}`).classList.remove('formulario__grupo-correcto');
+		document.querySelector(`#grupo__${campo} i`).classList.add('fa-times-circle');
+		document.querySelector(`#grupo__${campo} i`).classList.remove('fa-check-circle');
+		document.querySelector(`#grupo__${campo} .input-error`).classList.add('input-error-activo');
+		mensajeCampos[campo] = false;
+	}
+}
+
+mensajeInputs.forEach((input) => {
+	input.addEventListener('onfocusout', validarFormMensaje);
+	input.addEventListener('blur', validarFormMensaje);
+});
+
+formMensaje.addEventListener('submit', (e) => {
+	e.preventDefault();
+
+	if(mensajeCampos.asunto && mensajeCampos.dateA && mensajeCampos.dateB && mensajeCampos.mensaje && mensajeCampos.publiImg){
+		formMensaje.reset();
+
+		document.getElementById('mensaje-exito').classList.add('mensaje-exito-activo');
+		setTimeout(() => {
+			document.getElementById('mensaje-exito').classList.remove('mensaje-exito-activo');
+		}, 5000);
+
+		document.querySelectorAll('.formulario__grupo-correcto').forEach((icono) => {
+			icono.classList.remove('formulario__grupo-correcto');
+		});
+	} else {
+		document.getElementById('formulario__publicacion').classList.add('mensaje-activo');
+	}
+});
+// WARZONE END VALIDACION MENSAJE
+
+
+//  !!!      WARZONE     !!!
+//  !!! VALIDAR_PANTALLA !!!
+//  !!!      WARZONE     !!!
+//  !!!      WARZONE     !!!
+
+/*Bien*/
+const formPantalla = document.getElementById('formPantalla');
+const pantallaInputs = document.querySelectorAll('#formPantalla input');
+
+const pantallaExpresiones = { 
+	nombre: /^[a-zA-Z0-9\_\-]{4,16}$/, // Letras, numeros, espacios... minimo 4, hasta 30
+	mac: /^([0-9a-f]{1,2}[\.:-]){5}([0-9a-f]{1,2})$/ // regex Fecha
+}
+
+const pantallaCampos = {
+	nombre: false,
+	mac: false
+}
+
+const validarFormPantalla = (e) => {
+	switch (e.target.name) {
+		case "nombre":
+			validarCampoPantalla(pantallaExpresiones.nombre, e.target, 'nombre');
+		break;
+		case "mac":
+			validarCampoPantalla(pantallaExpresiones.mac, e.target, 'mac');
+		break;
+	}
+}
+
+const validarCampoPantalla = (expresion, input, campo) => {
+	if(expresion.test(input.value)){
+        alert('Grovyle');
+		document.getElementById(`grupo__${campo}`).classList.remove('formulario__grupo-incorrecto');
+		document.getElementById(`grupo__${campo}`).classList.add('formulario__grupo-correcto');
+		document.querySelector(`#grupo__${campo} i`).classList.add('fa-check-circle');
+		document.querySelector(`#grupo__${campo} i`).classList.remove('fa-times-circle');
+		document.querySelector(`#grupo__${campo} .input-error`).classList.remove('input-error-activo');
+		pantallaCampos[campo] = true;
+	} else {
+        alert('Gengar');
+		document.getElementById(`grupo__${campo}`).classList.add('formulario__grupo-incorrecto');
+		document.getElementById(`grupo__${campo}`).classList.remove('formulario__grupo-correcto');
+		document.querySelector(`#grupo__${campo} i`).classList.add('fa-times-circle');
+		document.querySelector(`#grupo__${campo} i`).classList.remove('fa-check-circle');
+		document.querySelector(`#grupo__${campo} .input-error`).classList.add('input-error-activo');
+		pantallaCampos[campo] = false;
+	}
+}
+
+pantallaInputs.forEach((input) => {
+	input.addEventListener('onfocusout', validarFormPantalla);
+	input.addEventListener('blur', validarFormPantalla);
+});
+
+formPantalla.addEventListener('submit', (e) => {
+	e.preventDefault();
+
+	if(pantallaCampos.asunto && pantallaCampos.dateA && pantallaCampos.dateB){
+		formPantalla.reset();
+
+		document.getElementById('mensaje-exito').classList.add('mensaje-exito-activo');
+		setTimeout(() => {
+			document.getElementById('mensaje-exito').classList.remove('mensaje-exito-activo');
+		}, 5000);
+
+		document.querySelectorAll('.formulario__grupo-correcto').forEach((icono) => {
+			icono.classList.remove('formulario__grupo-correcto');
+		});
+	} else {
+		document.getElementById('formulario__pantalla').classList.add('mensaje-activo');
+	}
+});
+// WARZONE END VALIDACION PANTALLA
 
 
 
 
-
-
-
-// WARZONE END
 
 // CORRIGE MAC ADDRESS
 var macAddress = document.getElementById("mac");
