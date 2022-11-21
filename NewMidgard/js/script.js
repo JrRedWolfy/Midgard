@@ -191,6 +191,7 @@ arrayModales.forEach(modal =>{ //PARA CADA MODAL REALIZAMOS LO SIGUIENTE
         document.getElementById("passFields").innerHTML = "";
         document.getElementById("changePass").innerHTML = '<i class="fas fa-unlock"></i> Cambiar Contraseña';
         document.getElementById("confirmarPass").style.display = "none";
+
     });
 });
 
@@ -259,31 +260,62 @@ function prev(){
 }
 
 //  !!!     WARZONE     !!!
-//  !!! VALIDAR_USUARIO !!!
-//  !!!     WARZONE     !!!
+//  !!!     VALIDAR     !!!
+//  !!!     VALIDAR     !!!
 //  !!!     WARZONE     !!!
 
 /*Bien*/
+const formPantalla = document.getElementById('formPantalla');
 const formulario = document.getElementById('formUser');
-const inputs = document.querySelectorAll('#formUser input');
+const formMensaje = document.getElementById('formPubli');
+
+const inputs = document.querySelectorAll('input');
+const textareas = document.querySelectorAll('textarea')
 
 const expresiones = { /*Bien*/
 	username: /^[a-zA-Z0-9\_\-]{4,50}$/, // Letras, numeros, guion y guion_bajo
 	fullname: /^[a-zA-ZÀ-ÿ\s]{4,50}$/, // Letras y espacios, pueden llevar acentos.
 	clave: /^(?=.*[0-9])[a-zA-Z0-9!@#$%^&*]{6,20}$/, // 6 a 20 digitos. minimo 1 numero
-	email: /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/,
-	dni: /^\d{8}[A-Z]$/ // 8 digitos.
+	email: /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/, // Validar Email
+	dni: /^\d{8}[A-Z]$/, // 8 digitos.
+    asunto: /^[0-9a-zA-Z!@#$%^&*À-ÿ\s]{4,30}$/, // Validar Asunto
+    mac: /^([0-9a-f]{1,2}[\.:-]){5}([0-9a-f]{1,2})$/, // Validar formato Mac
+    nombre: /^[a-zA-Z0-9\_\-]{4,16}$/ // Validar Nombre
+    
 }
 
 const campos = { /*Bien*/
+    // Campos Modal Usuario
 	username: false,
 	fullname: false,
 	clave: false,
 	email: false,
-	dni: false
+	dni: false,
+
+    // Campos Modal Publicacion
+    asunto: false,
+	dateA: false,
+	dateB: false,
+    mensaje: false,
+    publiImg: false,
+
+    // Campos Modal Pantalla
+    nombre: false,
+	mac: false
 }
 
-const validarFormulario = (e) => { /*Bien*/
+inputs.forEach((input) => { /*Bien*/
+	input.addEventListener('onfocusout', validarFormulario);
+	input.addEventListener('blur', validarFormulario);
+});
+
+textareas.forEach((textarea) => { /*Bien*/
+	textarea.addEventListener('onfocusout', validarFormulario);
+	textarea.addEventListener('blur', validarFormulario);
+});
+
+
+function validarFormulario(e){ /*Bien*/
 	switch (e.target.name) {
 		case "username":
 			validarCampo(expresiones.username, e.target, 'username');
@@ -300,11 +332,27 @@ const validarFormulario = (e) => { /*Bien*/
 		case "dni":
 			validarCampo(expresiones.dni, e.target, 'dni');
 		break;
+        case "asunto":
+			validarCampo(expresiones.asunto, e.target, 'asunto');
+		break;
+        case "nombre":
+			validarCampo(expresiones.nombre, e.target, 'nombre');
+		break;
+		case "mac":
+			validarCampo(expresiones.mac, e.target, 'mac');
+		break;
+        case "mensaje":
+			alert('Rotom');
+		break;
+        case "ubicacion":
+			alert('Cofagriguss');
+		break;
 	}
 }
 
 const validarCampo = (expresion, input, campo) => {
 	if(expresion.test(input.value)){
+        alert('Grovyle');
 		document.getElementById(`grupo__${campo}`).classList.remove('formulario__grupo-incorrecto');
 		document.getElementById(`grupo__${campo}`).classList.add('formulario__grupo-correcto');
 		document.querySelector(`#grupo__${campo} i`).classList.add('fa-check-circle');
@@ -312,6 +360,7 @@ const validarCampo = (expresion, input, campo) => {
 		document.querySelector(`#grupo__${campo} .input-error`).classList.remove('input-error-activo');
 		campos[campo] = true;
 	} else {
+        alert('Gengar');
 		document.getElementById(`grupo__${campo}`).classList.add('formulario__grupo-incorrecto');
 		document.getElementById(`grupo__${campo}`).classList.remove('formulario__grupo-correcto');
 		document.querySelector(`#grupo__${campo} i`).classList.add('fa-times-circle');
@@ -320,11 +369,6 @@ const validarCampo = (expresion, input, campo) => {
 		campos[campo] = false;
 	}
 }
-
-inputs.forEach((input) => { /*Bien*/
-	input.addEventListener('onfocusout', validarFormulario);
-	input.addEventListener('blur', validarFormulario);
-});
 
 formulario.addEventListener('submit', (e) => {
 	e.preventDefault();
@@ -361,70 +405,11 @@ formulario.addEventListener('submit', (e) => {
 //  !!!     WARZONE     !!!
 
 /*Bien*/
-const formMensaje = document.getElementById('formPubli');
-const mensajeInputs = document.querySelectorAll('#formPubli input');
-
-const mensajeExpresiones = { 
-	asunto: /^[0-9a-zA-Z!@#$%^&*À-ÿ\s]{4,30}$/, // Letras, numeros, espacios... minimo 4, hasta 30
-	fecha: /^\d{4}-\d{2}-\d{2}$/, // regex Fecha
-    archivo: (/\.(gif|jpe?g|tiff?|png|webp|bmp|pdf)$/i) // Archivo imagen
-}
-
-const mensajeCampos = {
-	asunto: false,
-	dateA: false,
-	dateB: false,
-    mensaje: false,
-    publiImg: false
-    
-}
-
-const validarFormMensaje = (e) => {
-	switch (e.target.name) {
-		case "asunto":
-			validarCampoMensaje(mensajeExpresiones.asunto, e.target, 'asunto');
-		break;
-		case "dateA":
-			validarCampoMensaje(mensajeExpresiones.fecha, e.target, 'dateA');
-		break;
-		case "dateB":
-			validarCampoMensaje(mensajeExpresiones.fecha, e.target, 'dateB');
-		break;
-        case "publiImg":
-			validarCampoMensaje(mensajeExpresiones.archivo, e.target, 'publiImg');
-		break;
-	}
-}
-
-const validarCampoMensaje = (expresion, input, campo) => {
-	if(expresion.test(input.value)){
-        alert('Grovyle');
-		document.getElementById(`grupo__${campo}`).classList.remove('formulario__grupo-incorrecto');
-		document.getElementById(`grupo__${campo}`).classList.add('formulario__grupo-correcto');
-		document.querySelector(`#grupo__${campo} i`).classList.add('fa-check-circle');
-		document.querySelector(`#grupo__${campo} i`).classList.remove('fa-times-circle');
-		document.querySelector(`#grupo__${campo} .input-error`).classList.remove('input-error-activo');
-		mensajeCampos[campo] = true;
-	} else {
-        alert('Gengar');
-		document.getElementById(`grupo__${campo}`).classList.add('formulario__grupo-incorrecto');
-		document.getElementById(`grupo__${campo}`).classList.remove('formulario__grupo-correcto');
-		document.querySelector(`#grupo__${campo} i`).classList.add('fa-times-circle');
-		document.querySelector(`#grupo__${campo} i`).classList.remove('fa-check-circle');
-		document.querySelector(`#grupo__${campo} .input-error`).classList.add('input-error-activo');
-		mensajeCampos[campo] = false;
-	}
-}
-
-mensajeInputs.forEach((input) => {
-	input.addEventListener('onfocusout', validarFormMensaje);
-	input.addEventListener('blur', validarFormMensaje);
-});
 
 formMensaje.addEventListener('submit', (e) => {
 	e.preventDefault();
 
-	if(mensajeCampos.asunto && mensajeCampos.dateA && mensajeCampos.dateB && mensajeCampos.mensaje && mensajeCampos.publiImg){
+	if(campos.asunto && campos.dateA && campos.dateB && campos.mensaje && campos.publiImg){
 		formMensaje.reset();
 
 		document.getElementById('mensaje-exito').classList.add('mensaje-exito-activo');
@@ -448,59 +433,11 @@ formMensaje.addEventListener('submit', (e) => {
 //  !!!      WARZONE     !!!
 
 /*Bien*/
-const formPantalla = document.getElementById('formPantalla');
-const pantallaInputs = document.querySelectorAll('#formPantalla input');
-
-const pantallaExpresiones = { 
-	nombre: /^[a-zA-Z0-9\_\-]{4,16}$/, // Letras, numeros, espacios... minimo 4, hasta 30
-	mac: /^([0-9a-f]{1,2}[\.:-]){5}([0-9a-f]{1,2})$/ // regex Fecha
-}
-
-const pantallaCampos = {
-	nombre: false,
-	mac: false
-}
-
-const validarFormPantalla = (e) => {
-	switch (e.target.name) {
-		case "nombre":
-			validarCampoPantalla(pantallaExpresiones.nombre, e.target, 'nombre');
-		break;
-		case "mac":
-			validarCampoPantalla(pantallaExpresiones.mac, e.target, 'mac');
-		break;
-	}
-}
-
-const validarCampoPantalla = (expresion, input, campo) => {
-	if(expresion.test(input.value)){
-        alert('Grovyle');
-		document.getElementById(`grupo__${campo}`).classList.remove('formulario__grupo-incorrecto');
-		document.getElementById(`grupo__${campo}`).classList.add('formulario__grupo-correcto');
-		document.querySelector(`#grupo__${campo} i`).classList.add('fa-check-circle');
-		document.querySelector(`#grupo__${campo} i`).classList.remove('fa-times-circle');
-		document.querySelector(`#grupo__${campo} .input-error`).classList.remove('input-error-activo');
-		pantallaCampos[campo] = true;
-	} else {
-        alert('Gengar');
-		document.getElementById(`grupo__${campo}`).classList.add('formulario__grupo-incorrecto');
-		document.getElementById(`grupo__${campo}`).classList.remove('formulario__grupo-correcto');
-		document.querySelector(`#grupo__${campo} i`).classList.add('fa-times-circle');
-		document.querySelector(`#grupo__${campo} i`).classList.remove('fa-check-circle');
-		document.querySelector(`#grupo__${campo} .input-error`).classList.add('input-error-activo');
-		pantallaCampos[campo] = false;
-	}
-}
-
-pantallaInputs.forEach((input) => {
-	input.addEventListener('onfocusout', validarFormPantalla);
-	input.addEventListener('blur', validarFormPantalla);
-});
 
 formPantalla.addEventListener('submit', (e) => {
 	e.preventDefault();
 
-	if(pantallaCampos.asunto && pantallaCampos.dateA && pantallaCampos.dateB){
+	if(campos.asunto && campos.dateA && campos.dateB){
 		formPantalla.reset();
 
 		document.getElementById('mensaje-exito').classList.add('mensaje-exito-activo');

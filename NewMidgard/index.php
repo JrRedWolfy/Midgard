@@ -319,56 +319,61 @@
                 </div>
                 <!-- CONTENIDO DEL MODAL PUBLICACIÓN -->
                 <form id="formPubli" method="post" action="base.php" novalidate>
-                <div class="modal-body"> 
-                    <p class="m-0 mb-2">Seleccione las pantallas que mostraran su mensaje</p>
-                    <div class="row mt-2 mb-0"><!-- VERIFICAR EL LARGO DE ASUNTO Y MENSAJE EN LA BASE DE DATOS PARA EVITAR ERRORES -->
-                        <?php include_once "base.php"; checkboxPantallas();?>
-                    </div>
-                    <button type="button" id="botonMarcar" class="btn btn-success btn-sm mt-2" onclick="marcarTodos()">Marcar todos</button><br>
-                    
-                    <div class="grupo" id="grupo__asunto">
-                        <label for="asunto" name="asunto" class="form-label mt-2">Asunto</label>
-                        <div class="grupo-input" id="input__asunto">
-                            <input type="text" class="form-control" id="asunto" name="asunto" required>
-                            <i class="validacion-estado fas fa-times-circle"></i>
+                    <div class="modal-body"> 
+                        <p class="m-0 mb-2">Seleccione las pantallas que mostraran su mensaje</p>
+                        <div class="row mt-2 mb-0"><!-- VERIFICAR EL LARGO DE ASUNTO Y MENSAJE EN LA BASE DE DATOS PARA EVITAR ERRORES -->
+                            <?php include_once "base.php"; checkboxPantallas();?>
                         </div>
-                        <p class="input-error">El asunto es obligatorio y debe conformarse por al menos 4 digitos.</p>
-                    </div>
+                        <button type="button" id="botonMarcar" class="btn btn-success btn-sm mt-2" onclick="marcarTodos()">Marcar todos</button><br>
 
-                    <label for="mensaje" class="form-label">Mensaje</label>
-                    <textarea id="mensaje" class="form-control"cols="3" rows="3" maxlength="5000" name="mensaje" required></textarea>
-
-                    <div class="row mt-2">
-                        <p class="m-0 mb-2">Establece el rango de fechas en que tu mensaje sera público</p>
-                        <div id="grupo__dateA" class="col">
-                            <label for="fechaInicio" class="form-label m-0">Fecha inicio</label>
-                            <div class="grupo-input" id="input__dateA">
-                                <input id="dateA" type="date" onchange="selectDate();" class="form-control" name="fechaInicio" min="">
+                        <div class="grupo" id="grupo__asunto">
+                            <label for="asunto" name="asunto" class="form-label mt-2">Asunto</label>
+                            <div class="grupo-input" id="input__asunto">
+                                <input type="text" class="form-control" id="asunto" name="asunto" required>
                                 <i class="validacion-estado fas fa-times-circle"></i>
                             </div>
-                            <p class="input-error">Campo Obligatorio.</p>
+                            <p class="input-error">El asunto es obligatorio y debe conformarse por al menos 4 digitos.</p>
                         </div>
 
-                        <div id="campo__dateB" class="col">
-                            <label for="fechaFin" class="form-label m-0">Fecha fin</label>
-                            <div class="grupo-input" id="input__dateB">
-                                <input id="dateB" type="date" class="form-control" name="fechaFin" min="" disabled>
-                                <i class="validacion-estado fas fa-times-circle"></i>
+                        <label for="mensaje" class="form-label">Mensaje</label>
+                        <textarea id="mensaje" class="form-control"cols="3" rows="3" maxlength="5000" name="mensaje" required></textarea>
+
+                        <div class="row mt-2">
+                            <p class="m-0 mb-2">Establece el rango de fechas en que tu mensaje sera público</p>
+                            <div id="grupo__dateA" class="col">
+                                <label for="fechaInicio" class="form-label m-0">Fecha inicio</label>
+                                <div class="grupo-input" id="input__dateA">
+                                    <input id="dateA" type="date" onchange="selectDate();" class="form-control" name="fechaInicio" min="">
+                                    <i class="validacion-estado fas fa-times-circle"></i>
+                                </div>
+                                <p class="input-error">Campo Obligatorio.</p>
                             </div>
-                            <p class="input-error">Campo Obligatorio.</p>
-                        </div>
-                    </div>
-                        <input class="form-control mt-3" type="file" id="publiImg" name="publiImg"><!-- GESTIONAR DISEÑO Y METODO QUE SOLO ACEPTE IMAGENES HASTA UN CIERTO TAMAÑO Y SU TRANSFORMACIÓN PARA LA BD -->
-                    </div>
 
-                    <div class="formulario__mensaje" id="formulario__publicacion">
-				        <p><i class="fas fa-exclamation-triangle"></i> <b>Error:</b> Por favor rellena el formulario correctamente. </p>
-			        </div>
+                            <div id="campo__dateB" class="col">
+                                <label for="fechaFin" class="form-label m-0">Fecha fin</label>
+                                <div class="grupo-input" id="input__dateB">
+                                    <input id="dateB" type="date" class="form-control" name="fechaFin" min="" disabled>
+                                    <i class="validacion-estado fas fa-times-circle"></i>
+                                </div>
+                                <p class="input-error">Campo Obligatorio.</p>
+                            </div>
+                            </div id="campo__publiImg">
+                                <div id="grupo__publiImg">
+                                    <input class="form-control mt-3" type="file" id="publiImg" accept="image/*,.pdf" name="publiImg"><!-- GESTIONAR DISEÑO Y METODO QUE SOLO ACEPTE IMAGENES HASTA UN CIERTO TAMAÑO Y SU TRANSFORMACIÓN PARA LA BD -->
+                                    <i class="validacion-estado fas fa-times-circle"></i>
+                                </div>
+                                <p class="input-error">Este campo es obligatorio en caso de no haber mensaje.</p>
+                            </div>
 
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                    <button type="submit" class="btn btn-success" name="publiButton">Publicar</button>
-                </div>
+                        <div class="formulario__mensaje" id="formulario__publicacion">
+				            <p><i class="fas fa-exclamation-triangle"></i> <b>Error:</b> Por favor rellena el formulario correctamente. </p>
+			            </div>
+
+                        <div class="modal-footer">
+
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                        <button type="submit" class="btn btn-success" name="publiButton">Publicar</button>
+                    </div>
                 </form>
             </div>
         </div>

@@ -13,7 +13,7 @@
             $id = "localhost"; //192.168.4.231
             $dbName = "midgard";
             $usuario = "root"; //midgard
-            $clave = "Salamence13"; //midgard
+            $clave = "Salamence!3"; //midgard
         /* ==================================== */ 
         
         try{
