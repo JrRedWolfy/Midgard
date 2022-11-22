@@ -17,9 +17,9 @@
 </head>
 <body>
     <!-- PRELOADER PREGUNTAR COMO REALIZAR UN EFECTO FADEOUT EN JAVASCRIPT --> 
-    <div class="preloader">
+    <!-- <div class="preloader">
         <div class="cssload-loader"></div>
-    </div>
+    </div> -->
 
     <!-- ==================== MENÚ ==================== -->
     

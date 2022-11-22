@@ -259,6 +259,43 @@ function prev(){
     }
 }
 
+//  !!!    AJAX USUARIOS    !!!
+//  !!!    AJAX USUARIOS    !!!
+//  !!!    AJAX USUARIOS    !!!
+//  !!!    AJAX USUARIOS    !!!
+//  !!!    AJAX USUARIOS    !!!
+
+function ajaxUser(div){
+    
+    // boton.id / boton.name
+    //CREAREMOS UNA CONSTANTE QUE ME RECOGERA EL DATO QUE QUIERO ENVIAR (TENER EN CUENTA EL NOMBRE YA QUE SE UTILIZARA EN)
+    const data = {texto : div.id}
+    
+    fetch("base.php",{//ESPECIFICAMOS LA RUTA A LA QUE SE ENVIA
+        method: 'POST',
+        body: JSON.stringify(data), //CODIFICAMOS LA VARIABLE PARA ENVIARLA A PHP
+        headers:{ //LE INDICAMOS AL PROGRAMA QUE TIPO DE INFORMACIÓN ENVIAMOS
+            'Accept' : 'application/json',
+            'Content-Type' : 'application/json',
+        }
+    }).then(response =>{//RECIBIMOS LA RESPUESTA EN UN OBJETO TIPO JSON
+        
+        return response.json();
+        
+    }).then(data => {
+
+        // Toda la parafernalia
+        // Toda la parafernalia
+        // Toda la parafernalia
+        // Toda la parafernalia
+
+        //Ejemplo
+        document.getElementById("resultados").innerHTML= "<p>"+data.usuario[0]['id_rol']+"</p>";
+        
+    }).catch(error => console.error(error));//EN CASO DE ERROR ME LO MUESTRA POR CONSOLA
+}
+
+
 //  !!!     WARZONE     !!!
 //  !!!     VALIDAR     !!!
 //  !!!     VALIDAR     !!!
@@ -305,12 +342,12 @@ const campos = { /*Bien*/
 }
 
 inputs.forEach((input) => { /*Bien*/
-	input.addEventListener('onfocusout', validarFormulario);
+	input.addEventListener('keyup', validarFormulario);
 	input.addEventListener('blur', validarFormulario);
 });
 
 textareas.forEach((textarea) => { /*Bien*/
-	textarea.addEventListener('onfocusout', validarFormulario);
+	textarea.addEventListener('keyup', validarFormulario);
 	textarea.addEventListener('blur', validarFormulario);
 });
 
@@ -352,7 +389,6 @@ function validarFormulario(e){ /*Bien*/
 
 const validarCampo = (expresion, input, campo) => {
 	if(expresion.test(input.value)){
-        alert('Grovyle');
 		document.getElementById(`grupo__${campo}`).classList.remove('formulario__grupo-incorrecto');
 		document.getElementById(`grupo__${campo}`).classList.add('formulario__grupo-correcto');
 		document.querySelector(`#grupo__${campo} i`).classList.add('fa-check-circle');
@@ -360,7 +396,6 @@ const validarCampo = (expresion, input, campo) => {
 		document.querySelector(`#grupo__${campo} .input-error`).classList.remove('input-error-activo');
 		campos[campo] = true;
 	} else {
-        alert('Gengar');
 		document.getElementById(`grupo__${campo}`).classList.add('formulario__grupo-incorrecto');
 		document.getElementById(`grupo__${campo}`).classList.remove('formulario__grupo-correcto');
 		document.querySelector(`#grupo__${campo} i`).classList.add('fa-times-circle');

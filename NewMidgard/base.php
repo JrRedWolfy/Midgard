@@ -163,13 +163,15 @@
         //RECORRER TODAS LOS VALORES OBTENIDOS
         while ($resultado){
             //MOSTRAMOS LOS DATOS DE LA CONSULTA
-        
+
             echo '<div class="mt-5 col-xl-2 col-lg-3 col-md-4 col-sm-6 col-6">';
                 echo '<div class="elemento">';
                     echo '<div class="lateral">';
-                        echo '<div class="face">';
-                            echo '<i class="fa fa-user"></i>';
-                        echo '</div>';
+                        echo  '<a href="#" data-bs-toggle="modal" data-bs-target="#modalUsuario">';
+                            echo '<div id="'.$resultado["username"].'" class="face" onclick="ajaxUser(this);">';
+                                echo '<i class="fa fa-user"></i>';
+                            echo '</div>';
+                        echo '</a>';
                         echo '<div class="botones">';
                             echo '<button class="boton red onRed" title="Eliminar" name="'.$resultado["username"].'"><i class="fa-solid fa-trash-can"></i></button><button class="boton blue onBlue" title="Editar" name="'.$resultado["username"].'"><i class="fa-solid fa-pencil"></i></button>';
                         echo '</div>';
@@ -185,6 +187,49 @@
             $resultado = $stm->fetch();
         }
     }
+
+    //   !!!    AJAX USUARIOS    !!!
+
+    $data = ["success"=>false];
+    $_POST = json_decode(file_get_contents('php://input'), true); //DECODIFICAMOS LA INFORMACIÓN RECIBIDA DE JAVASCRIPT
+    if (isset($_POST['texto'])){//SI SE HA DECODIFICADO CORRECTAMENTE ENTRARA EN LA FUNCIÓN
+        ajaxUser();
+    }
+
+    function ajaxUser(){
+        //ALMACENAMOS EN UNA VARIABLE EL VALOR QUE SE ENVIO POR JAVASCRIPT
+        $username = $_POST['texto']; 
+
+        //HACEMOS LA CONSULTA EN LA BASE DE DATOS UTILIZANDO LA VARIABLE ENVIADA EN JAVASCRIPT
+        $con = conexion();
+        $consulta="SELECT * FROM USUARIO WHERE username = '$username'";
+        $stm = $con->query($consulta);
+        $resultado = $stm->fetch();
+         
+        //ALMACENAMOS EN UN ARRAY ASOCIATIVO EL RESULTADO DE LA CONSULTA
+
+        $cont=0;
+        while ($resultado){
+        $datos[$cont] = [
+            'username' => $resultado['username'], 
+            'clave' => $resultado['clave'], 
+            'nombre' => $resultado['nombre'], 
+            'email' => $resultado['email'], 
+            'dni' => $resultado['dni'], 
+            'inactivo' => $resultado['inactivo'], 
+            'id_rol' => $resultado['id_rol']
+            ];
+        $cont++;
+        $resultado = $stm->fetch();
+
+        }
+
+        $data = ["success"=>true,'usuario' => $datos];
+        
+        die(json_encode($data));
+    }
+
+
 
     function listNews(){
         //include_once "base.php";
@@ -584,6 +629,7 @@
            echo "Error al insertar a los datos<br>".$e;
         }
     }
+
 
     //FUNCION AUXILIAR DE INSERTPUBLICACION() QUE HACE UNA CONSULTA Y BUSCA LOS DATOS DE LA PUBLICACIÓN MÁS RECIENTE
     function idPubli($consulta){
