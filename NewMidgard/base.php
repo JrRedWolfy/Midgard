@@ -1,9 +1,9 @@
 <?php
 
     /* =============================== */
-    // ini_set('display_errors', 1);
-    // ini_set('display_startup_errors', 1);
-    // error_reporting(E_ALL);
+    ini_set('display_errors', 1);
+    ini_set('display_startup_errors', 1);
+    error_reporting(E_ALL);
     /* =============================== */
 
     //ESTA FUNCIÓN ME DEVUELVE UN OBJETO DE CONEXIÓN A LA BD USANDO PDO
@@ -110,7 +110,7 @@
         $con = conexion();
 
         //REALIZAMOS LA CONSULTA
-        $consulta="SELECT * FROM PANTALLA";
+        $consulta="SELECT mac_pantalla, nombre FROM PANTALLA";
         
         //EJECUTAMOS LA CONSULTA SQL (EL RESULTADO VIENE EN UN OBJETO DE TIPO STATEMENT)
         $stm = $con->query($consulta);
@@ -125,9 +125,11 @@
             echo '<div class="mt-5 col-xl-2 col-lg-3 col-md-4 col-sm-6 col-6">';
                 echo '<div class="elemento">';
                     echo '<div class="lateral">';
-                        echo '<div class="pc">';
-                            echo '<i class="fa fa-desktop"></i>';
-                        echo '</div>';
+                        echo  '<a href="#" title="Datos" data-bs-toggle="modal" data-bs-target="#modalPantalla">';
+                            echo '<div id="'.$resultado["mac_pantalla"].'" class="pc" onclick="ajaxPantalla(this);">';
+                                echo '<i class="fa fa-desktop"></i>';
+                            echo '</div>';
+                        echo '</a>';
                         echo '<div class="botones">';
                             echo '<button class="boton red onRed" title="Eliminar" name="'.$resultado["mac_pantalla"].'"><i class="fa-solid fa-trash-can"></i></button><button class="boton blue onBlue" title="Editar"><i class="fa-solid fa-pencil"></i></button>';
                         echo '</div>';
@@ -145,6 +147,44 @@
 
     }
 
+
+    $dataP = ["success"=>false];
+    $_POST = json_decode(file_get_contents('php://input'), true);
+    if (isset($_POST['pantalla'])){//SI SE HA DECODIFICADO CORRECTAMENTE ENTRARA EN LA FUNCIÓN
+        ajaxPantalla();
+    }
+
+    function ajaxPantalla(){
+        //ALMACENAMOS EN UNA VARIABLE EL VALOR QUE SE ENVIO POR JAVASCRIPT
+        $mac = $_POST['pantalla']; 
+
+        //HACEMOS LA CONSULTA EN LA BASE DE DATOS UTILIZANDO LA VARIABLE ENVIADA EN JAVASCRIPT
+        $con = conexion();
+        $consulta="SELECT * FROM PANTALLA WHERE mac_pantalla = '$mac'";
+        $stm = $con->query($consulta);
+        $resultado = $stm->fetch();
+         
+        //ALMACENAMOS EN UN ARRAY ASOCIATIVO EL RESULTADO DE LA CONSULTA
+
+        $cont=0;
+        while ($resultado){
+        $datos[$cont] = [
+            'mac_pantalla' => $resultado['mac_pantalla'], 
+            'ubicacion' => $resultado['ubicacion'], 
+            'nombre' => $resultado['nombre']
+            ];
+        $cont++;
+        $resultado = $stm->fetch();
+
+        }
+
+        $dataP = ["success"=>true,'pantalla' => $datos];
+        
+        die(json_encode($dataP));
+    }
+
+
+
     function listUsers(){
         //include_once "base.php";
 
@@ -152,7 +192,7 @@
         $con = conexion();
 
         //REALIZAMOS LA CONSULTA
-        $consulta="SELECT * FROM USUARIO";
+        $consulta="SELECT username FROM USUARIO";
         
         //EJECUTAMOS LA CONSULTA SQL (EL RESULTADO VIENE EN UN OBJETO DE TIPO STATEMENT)
         $stm = $con->query($consulta);
@@ -167,7 +207,7 @@
             echo '<div class="mt-5 col-xl-2 col-lg-3 col-md-4 col-sm-6 col-6">';
                 echo '<div class="elemento">';
                     echo '<div class="lateral">';
-                        echo  '<a href="#" data-bs-toggle="modal" data-bs-target="#modalUsuario">';
+                        echo  '<a href="#" title="Datos" data-bs-toggle="modal" data-bs-target="#modalUsuario">';
                             echo '<div id="'.$resultado["username"].'" class="face" onclick="ajaxUser(this);">';
                                 echo '<i class="fa fa-user"></i>';
                             echo '</div>';
@@ -190,15 +230,16 @@
 
     //   !!!    AJAX USUARIOS    !!!
 
-    $data = ["success"=>false];
-    $_POST = json_decode(file_get_contents('php://input'), true); //DECODIFICAMOS LA INFORMACIÓN RECIBIDA DE JAVASCRIPT
-    if (isset($_POST['texto'])){//SI SE HA DECODIFICADO CORRECTAMENTE ENTRARA EN LA FUNCIÓN
+
+    $dataU = ["success"=>false];
+    $_POST = json_decode(file_get_contents('php://input'), true); //DECODIFICAMOS LA INFORMACIÓN RECIBIDA DE JAVASCRIPT, IGUAL PARA CADA ITERACION DE AJAX(FUNCTION)
+    if (isset($_POST['usuario'])){//SI SE HA DECODIFICADO CORRECTAMENTE ENTRARA EN LA FUNCIÓN
         ajaxUser();
     }
 
     function ajaxUser(){
         //ALMACENAMOS EN UNA VARIABLE EL VALOR QUE SE ENVIO POR JAVASCRIPT
-        $username = $_POST['texto']; 
+        $username = $_POST['usuario']; 
 
         //HACEMOS LA CONSULTA EN LA BASE DE DATOS UTILIZANDO LA VARIABLE ENVIADA EN JAVASCRIPT
         $con = conexion();
@@ -224,11 +265,10 @@
 
         }
 
-        $data = ["success"=>true,'usuario' => $datos];
+        $dataU = ["success"=>true,'usuario' => $datos];
         
-        die(json_encode($data));
+        die(json_encode($dataU));
     }
-
 
 
     function listNews(){
@@ -238,7 +278,7 @@
         $con = conexion();
 
         //REALIZAMOS LA CONSULTA
-        $consulta="SELECT * FROM PUBLICACION";
+        $consulta="SELECT id_publicacion, titulo FROM PUBLICACION";
         
         //EJECUTAMOS LA CONSULTA SQL (EL RESULTADO VIENE EN UN OBJETO DE TIPO STATEMENT)
         $stm = $con->query($consulta);
@@ -257,9 +297,11 @@
                             echo '<button class="boton red onRed" title="Eliminar" name="'.$resultado["id_publicacion"].'"><i class="fa-solid fa-trash-can"></i></button><button class="boton blue onBlue" title="Editar" name="'.$resultado["id_publicacion"].'"><i class="fa-solid fa-pencil"></i></button>';
                         echo '</div>';
 
-                        echo '<div class="news">';
-                            echo '<i class="fa-solid fa-newspaper"></i>';
-                        echo '</div>';
+                        echo  '<a href="#" title="Datos" data-bs-toggle="modal" data-bs-target="#modalNews">';
+                            echo '<div id="'.$resultado["id_publicacion"].'" class="news" onclick="ajaxNews(this);">';
+                                echo '<i class="fa-solid fa-newspaper"></i>';
+                            echo '</div>';
+                        echo '</a>';
                         
                         echo '<div class="botones">';
                             echo '<button class="boton red onRed" title="Eliminar" name="'.$resultado["id_publicacion"].'"><i class="fa-solid fa-trash-can"></i></button><button class="boton blue onBlue" title="Editar" name="'.$resultado["id_publicacion"].'"><i class="fa-solid fa-pencil"></i></button>';
@@ -276,6 +318,51 @@
             //PASAR A LA SIGUIENTE FILA
             $resultado = $stm->fetch();
         }
+    }
+
+
+    $dataN = ["success"=>false];
+    $_POST = json_decode(file_get_contents('php://input'), true);
+    if (isset($_POST['news'])){//SI SE HA DECODIFICADO CORRECTAMENTE ENTRARA EN LA FUNCIÓN
+        ajaxNews();
+    }
+
+    // FUNCION PARA ENVIAR DATOS DE UNA PANTALLA
+    function ajaxNews(){
+        //ALMACENAMOS EN UNA VARIABLE EL VALOR QUE SE ENVIO POR JAVASCRIPT
+        $id = $_POST['news']; 
+
+        //HACEMOS LA CONSULTA EN LA BASE DE DATOS UTILIZANDO LA VARIABLE ENVIADA EN JAVASCRIPT
+        $con = conexion();
+        $consulta="SELECT * FROM PUBLICACION, ESTADO WHERE id = id_estado AND id_publicacion = '$id'";
+        $stm = $con->query($consulta);
+        $resultado = $stm->fetch();
+         
+        //ALMACENAMOS EN UN ARRAY ASOCIATIVO EL RESULTADO DE LA CONSULTA
+
+        $cont=0;
+        while ($resultado){
+        $datos[$cont] = [
+            'id_publicacion' => $resultado['id_publicacion'], 
+            'fechaCreacion' => $resultado['fechaCreacion'], 
+            'titulo' => $resultado['titulo'], 
+            'fechaInicio' => $resultado['fechaInicio'], 
+            'fechaFin' => $resultado['fechaFin'], 
+            'mensaje' => $resultado['mensaje'], 
+            'imagen' => $resultado['imagen'],
+            'fechaAprobacion' => $resultado['fechaAprobacion'], 
+            'escritor' => $resultado['escritor'],
+            'aprobador' => $resultado['aprobador'], 
+            'estado' => $resultado['nombre_estado']
+        ];
+        $cont++;
+        $resultado = $stm->fetch();
+
+        }
+
+        $dataN = ["success"=>true,'news' => $datos];
+        
+        die(json_encode($dataN));
     }
 
 

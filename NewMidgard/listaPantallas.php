@@ -75,6 +75,28 @@
     </section>
 
 
+    <div class="modal fade" id="modalPantalla" tabindex="-1" aria-labelledby="modalPantalla" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">PANTALLA</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                </div>
+                <!-- CONTENIDO DEL MODAL USUARIO -->
+                <form id="formUser" method="post" action="base.php" novalidate>
+                    <div class="modal-body">
+
+                
+                  
+
+
+
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </div>
     
 
     <footer class="fixed-bottom">

@@ -47,7 +47,6 @@ function menuCentrado(){
     }
 }
 
-
 //TOMA LA FECHA ACTUAL Y COLOCA EL VALOR MINIMO A LA FECHA DE LOS FORMULARIOS
 function thisDate() {
     let fecha = new Date();
@@ -269,11 +268,11 @@ function ajaxUser(div){
     
     // boton.id / boton.name
     //CREAREMOS UNA CONSTANTE QUE ME RECOGERA EL DATO QUE QUIERO ENVIAR (TENER EN CUENTA EL NOMBRE YA QUE SE UTILIZARA EN)
-    const data = {texto : div.id}
+    let dataU = {usuario : div.id};
     
     fetch("base.php",{//ESPECIFICAMOS LA RUTA A LA QUE SE ENVIA
         method: 'POST',
-        body: JSON.stringify(data), //CODIFICAMOS LA VARIABLE PARA ENVIARLA A PHP
+        body: JSON.stringify(dataU), //CODIFICAMOS LA VARIABLE PARA ENVIARLA A PHP
         headers:{ //LE INDICAMOS AL PROGRAMA QUE TIPO DE INFORMACIÓN ENVIAMOS
             'Accept' : 'application/json',
             'Content-Type' : 'application/json',
@@ -282,7 +281,7 @@ function ajaxUser(div){
         
         return response.json();
         
-    }).then(data => {
+    }).then(dataU => {
 
         // Toda la parafernalia
         // Toda la parafernalia
@@ -290,7 +289,90 @@ function ajaxUser(div){
         // Toda la parafernalia
 
         //Ejemplo
-        document.getElementById("resultados").innerHTML= "<p>"+data.usuario[0]['id_rol']+"</p>";
+        document.getElementById("resultados").innerHTML= "<p>"+dataU.usuario[0]['id_rol']+"</p>";
+        
+    }).catch(error => console.error(error));//EN CASO DE ERROR ME LO MUESTRA POR CONSOLA
+}
+
+//  !!!    AJAX PANTALLAS    !!!
+//  !!!    AJAX PANTALLAS    !!!
+//  !!!    AJAX PANTALLAS    !!!
+//  !!!    AJAX PANTALLAS    !!!
+//  !!!    AJAX PANTALLAS    !!!
+
+function ajaxPantalla(div){
+    
+    // boton.id / boton.name
+    //CREAREMOS UNA CONSTANTE QUE ME RECOGERA EL DATO QUE QUIERO ENVIAR (TENER EN CUENTA EL NOMBRE YA QUE SE UTILIZARA EN)
+    const dataP = {pantalla : div.id};
+    
+    fetch("base.php",{//ESPECIFICAMOS LA RUTA A LA QUE SE ENVIA
+        method: 'POST',
+        body: JSON.stringify(dataP), //CODIFICAMOS LA VARIABLE PARA ENVIARLA A PHP
+        headers:{ //LE INDICAMOS AL PROGRAMA QUE TIPO DE INFORMACIÓN ENVIAMOS
+            'Accept' : 'application/json',
+            'Content-Type' : 'application/json',
+        }
+    }).then(response =>{//RECIBIMOS LA RESPUESTA EN UN OBJETO TIPO JSON
+        
+        return response.json();
+        
+    }).then(dataP => {
+
+        // Toda la parafernalia
+        // Toda la parafernalia
+        // Toda la parafernalia
+        // Toda la parafernalia
+
+        document.getElementById("resultados").innerHTML= "<p>"+dataP.pantalla[0]['mac_pantalla']+"</p>";
+        //Ejemplo
+        //document.getElementById("resultados").innerHTML= "<p>"+data.usuario[0]['id_rol']+"</p>";
+        
+    }).catch(error => console.error(error));//EN CASO DE ERROR ME LO MUESTRA POR CONSOLA
+}
+
+
+//  !!!    AJAX NEWS    !!!
+//  !!!    AJAX NEWS    !!!
+//  !!!    AJAX NEWS    !!!
+//  !!!    AJAX NEWS    !!!
+//  !!!    AJAX NEWS    !!!
+
+function ajaxNews(div){
+    
+    // boton.id / boton.name
+    //CREAREMOS UNA CONSTANTE QUE ME RECOGERA EL DATO QUE QUIERO ENVIAR (TENER EN CUENTA EL NOMBRE YA QUE SE UTILIZARA EN)
+    const dataN = {news : div.id};
+    
+    fetch("base.php",{//ESPECIFICAMOS LA RUTA A LA QUE SE ENVIA
+        method: 'POST',
+        body: JSON.stringify(dataN), //CODIFICAMOS LA VARIABLE PARA ENVIARLA A PHP
+        headers:{ //LE INDICAMOS AL PROGRAMA QUE TIPO DE INFORMACIÓN ENVIAMOS
+            'Accept' : 'application/json',
+            'Content-Type' : 'application/json',
+        }
+    }).then(response =>{//RECIBIMOS LA RESPUESTA EN UN OBJETO TIPO JSON
+        
+        return response.json();
+        
+    }).then(dataN => {
+
+
+        let tabla = document.getElementById("tablaUser");
+        let tdElement = tabla.querySelectorAll("td");
+
+        forEach(object e :tdElement){
+            e.innerHTML = "Hai";
+        }
+
+        // Toda la parafernalia
+        // Toda la parafernalia
+        // Toda la parafernalia
+        // Toda la parafernalia
+
+        document.getElementById("resultados").innerHTML= "<p>"+dataN.news[0]['titulo']+"</p>";
+        //Ejemplo
+        //document.getElementById("resultados").innerHTML= "<p>"+data.usuario[0]['id_rol']+"</p>";
         
     }).catch(error => console.error(error));//EN CASO DE ERROR ME LO MUESTRA POR CONSOLA
 }

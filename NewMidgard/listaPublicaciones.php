@@ -65,6 +65,7 @@
     </nav> 
 
 
+
     <section id="listas"  class="container-fluid">
         
         <div class="row">
@@ -73,6 +74,32 @@
         
 
     </section>
+
+
+
+    <div class="modal fade" id="modalNews" tabindex="-1" aria-labelledby="modalNews" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">PUBLICACION</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                </div>
+                <!-- CONTENIDO DEL MODAL USUARIO -->
+                <form id="formUser" method="post" action="base.php" novalidate>
+                    <div class="modal-body">
+
+                    
+
+
+
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </div>
+
+
 
     <footer class="">
         <img src="img/logo.webp" alt="logo" width="30" height="30" class="d-inline-block align-text-top">

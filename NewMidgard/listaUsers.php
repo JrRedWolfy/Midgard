@@ -74,24 +74,50 @@
 
 
     <!-- MODAL USUARIO -->
-    <div class="modal fade" id="modalUsuario" tabindex="-1" aria-labelledby="modalPublicación" aria-hidden="true">
+    <div class="modal fade" id="modalUsuario" tabindex="-1" aria-labelledby="modalUsuario" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">AÑADIR NUEVO USUARIO</h5>
+                    <h5 class="modal-title">USUARIO</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
                 </div>
                 <!-- CONTENIDO DEL MODAL USUARIO -->
                 <form id="formUser" method="post" action="base.php" novalidate>
                     <div class="modal-body">
-
-                
-                    <div id="resultados">
-
-                    </div>
-
-
-
+                    
+                    <table id="tablaUser">
+                        
+                        <tr>
+                            <th>USUARIO</th>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <th>CONTRASEÑA</th>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <th>NOMBRE</th>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <th>EMAIL</th>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <th>DNI</th>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <th>INACTIVO</th>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <th>FUNCION</th>
+                            <td></td>
+                        </tr>
+                        
+                    </table>
+                    
 
                     </div>
 
