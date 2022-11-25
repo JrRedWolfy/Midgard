@@ -1,0 +1,359 @@
+html {
+
+    height: 100%;
+    box-sizing: border-box;
+
+}
+
+body{
+    text-align: left;
+    background-color: #fde2ad; /* DAVID DESCOMENTALO!!... */
+    position: relative;
+    min-height: 100%; 
+    padding-bottom: 6.74rem;
+    box-sizing: inherit;
+}
+.margin_check{ /* PREGUNTAR PORQUE ml-num no funciona */
+    margin-left: 5px;
+}
+.navbar-center {
+    position: absolute;
+    left: 50%;
+    transform: translatex(-50%);
+}
+select{
+    background-color: #6c757d;
+    border: none;
+    border-radius: 5px;
+    padding: 5px;
+    color: white;
+}
+/* Esto es el Menu */
+
+#menu{
+    background-color: #f26b00;
+    border-bottom: 5px solid #c13912;
+}
+
+
+/* MODELO DE SUBMENU CCS */
+
+section h2{
+    color: #333;
+    text-decoration: none;
+    font-size: 2rem;
+    font-weight: 300;
+    line-height: 1;
+    margin: 0 auto 1rem;
+    font-family: var(--font-sans-serif);
+}
+
+.submenu{	
+	margin-top: 0;
+    margin-bottom: 1.5rem;
+    text-align: left;
+    position: relative;
+    background: #fff;
+    box-shadow: 12px 15px 20px 0px rgba(46,61,73,0.15);
+    border-radius: 4px;
+    transition: all 0.3s ease;
+}
+
+.submenu .fa-solid, .submenu .fa{
+	position: relative;
+    font-size: 100px;
+}
+
+.icono_submenu{
+padding: 20px;
+}
+
+.submenu:hover {
+    box-shadow: 2px 4px 8px 0px rgba(46,61,73,0.2);
+}
+.submenu a {
+    width: 100%;
+    height: 100%;
+    display: block;
+    border-bottom: none;
+    text-decoration: none;
+    color: #525c65;
+    transition: color 0.3s ease;
+}
+.texto_submenu {
+    padding: 20px 24px;
+    height: 80px;
+    padding-bottom: 0.75rem;
+    position: relative;
+}
+/* Modal con Estilo */
+
+.modal-body{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+}
+
+.divisor{
+    background-color: black;
+    height: 5px;
+    width: 75%;
+}
+
+.form-control{
+    background-color: #fff4df;
+}
+
+.perfilInput{
+    text-align: center;
+}
+
+.modal-content{
+    border: 4px double #ecab78;
+    border-radius: 10px;
+    background-color: #fde2ad;
+}
+
+.modal-footer{
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    align-content: center;
+}
+
+.btnModal{
+    text-align: center;
+    text-decoration: none;
+    background-color: #fff4df;
+    display: inline-block;
+    width: 48%;
+    border: 3px double #ecab78;
+    border-radius: 5px;
+    box-shadow: 6px 8px 10px 0px rgba(46,61,73,0.2);
+    color: #575757;
+    transition-duration: 0.5s;
+    cursor: pointer;
+}
+
+.btnModal i{
+    color: #575757;
+}
+
+#nickname{
+    color: red;
+}
+
+
+
+/*Estilos de la listas de los CRUDs*/
+
+.listas{
+    height: 100vh;
+}
+
+#listas{
+    margin-top: 50px;
+    padding-top: 10px;
+    border-top: 5px solid #ecab78;
+    border-radius: 25px;
+    background-color: #fff4df;
+}
+
+.items{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    padding: 10px 0px;
+    margin: 0px 40px;
+    border-radius: 10px;
+    background-color: white;
+}
+
+/*Estilo de las tarjetas que muestran cada elemento en una lista*/
+
+.elemento{
+    border-radius: 8px;
+    box-shadow: 12px 15px 20px 0px rgba(46,61,73,0.2);
+    transition: all 0.3s ease;
+}
+
+.elemento:hover{
+    box-shadow: 2px 4px 8px 0px rgba(46,61,73,0.2);
+}
+
+.pc{
+    background-color: rgba(22, 160, 133, 0.1);
+    padding: 15px 20px;
+    border-top-left-radius: 8px;
+}
+.pc i{
+    color:#16A085;
+    font-size: 80px;
+}
+
+.face{
+    background-color: rgba(187, 120, 36, 0.1);
+    padding: 15px 20px;
+    border-top-left-radius: 8px;
+}
+.face i{
+    color:#bb7824;
+    font-size: 80px;
+}
+
+.news{
+    background-color: rgba(51, 105, 232, 0.1);
+    padding: 15px 20px;
+    border-top-left-radius: 8px;
+}
+.news i{
+    color:#3369e8;
+    font-size: 80px;
+}
+
+.lateral{
+    display: flex;
+    flex-direction: row;
+}
+
+.botones{
+    display: flex;
+    flex-direction: column-reverse;
+    background-color: aquamarine;
+    border-top-right-radius: 5px;
+    width: 100%;
+
+}
+
+.boton{
+    font-size: 30px;
+    height: 50%;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    transition-duration: 0.5s;
+    cursor: pointer;
+}
+
+.red{
+    background-color: white;
+    color:#a51e1e; 
+    border: 2px solid #a51e1e;
+    border-top: 1px solid #a51e1e;
+    
+}
+
+.onRed:hover{
+    background-color: #a51e1e;
+    color: #fff;
+}
+
+.blue{
+    color:#3693d6;
+    background-color: white;
+    border: 2px solid #3693d6;
+    border-bottom: 1px solid #3693d6;
+    border-top-right-radius: 8px;
+    
+}
+
+.onBlue:hover{
+    background-color: #3693d6;
+    color: #fff;
+}
+
+.nombre{
+    background-color: #fff;
+    padding: 10px 0px;
+    width: 100%;
+    text-align: center;
+    border-bottom-left-radius: 8px;
+    border-bottom-right-radius: 8px;
+}
+
+@media (max-width: 576px){
+    .pc i{
+        font-size: 46px;
+    }
+    .boton{
+        font-size: 18px;
+    }
+}
+
+/*   MODAL EXPOSITOR  */
+
+.tablaVer {
+    border: 4px double #ecab78;
+    background-color: #ECAB78;
+    width: 100%;
+    text-align: left;
+    border-collapse: collapse;
+}
+.tablaVer td, table.tablaVer th {
+    border: 2px solid #f78831;
+    padding: 4px 10px;
+}
+.tablaVer tbody td {
+    font-size: 16px;
+}
+.tablaVer tr:nth-child(even) {
+    background: #FDE2AD;
+}
+.tablaVer td:nth-child(even) {
+    background: #FFF4DF;
+}
+.tablaVer tfoot td {
+    font-size: 16px;
+}
+
+/*  FOOTER  */
+
+footer{
+    border-top: 5px solid #c13912;
+    background-color: #f26b00;
+    position: absolute;
+    bottom: 0;
+    min-width: 100%;
+
+}
+
+.footercontainer {
+
+    display: flex;
+    width: 100%;
+    justify-content: stretch;
+    margin-top: auto;
+    min-height: 100%;
+
+}
+
+.footercontainer > .footerapartado {
+
+    text-align: center;
+    width: 100%;
+    color: white;
+
+}
+
+.footercontainer > .footerapartado > h4 {
+
+    font-size: large;
+
+}
+
+.footercontainer > .footerapartado > p {
+
+    color: rgba(211, 211, 211, 0.674);
+    font-size: small;
+    margin-bottom: -0.5%;
+}
+
+.footercontainer > .footerapartado > p > a {
+
+    text-decoration: none;
+    color: rgba(211, 211, 211, 0.674);
+
+}
+
