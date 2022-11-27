@@ -61,7 +61,7 @@
 
             // echo $nfilas;
 
-            print_r($publicaciones);
+            //print_r($publicaciones);
         ?>
 
         <table class="table">

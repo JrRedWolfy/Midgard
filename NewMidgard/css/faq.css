@@ -1,0 +1,8 @@
+.container {
+
+    position: relative;
+    min-height: 50%;
+    height: 100%; 
+    box-sizing: inherit;
+
+}

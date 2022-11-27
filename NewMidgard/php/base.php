@@ -1,9 +1,9 @@
 <?php
 
     /* =============================== */
-    ini_set('display_errors', 1);
-    ini_set('display_startup_errors', 1);
-    error_reporting(E_ALL);
+    // ini_set('display_errors', 1);
+    // ini_set('display_startup_errors', 1);
+    // error_reporting(E_ALL);
     /* =============================== */
 
     //ESTA FUNCIÓN ME DEVUELVE UN OBJETO DE CONEXIÓN A LA BD USANDO PDO
@@ -13,7 +13,7 @@
             $id = "localhost"; //192.168.4.231
             $dbName = "midgard";
             $usuario = "root"; //midgard
-            $clave = "Salamence13"; //midgard
+            $clave = "root_Root1"; // 
         /* ==================================== */ 
         
         try{
@@ -63,7 +63,7 @@
 
             //EVITA QUE LOS USUARIOS CON EL ATRIBUTO INACTIVO ENTREN EN LA WEB
             if($resultado["inactivo"] == '1'){
-                header("location: login?inactivo=true");
+                header("location: ../login.php?inactivo=true");
             }
             //SINO ESTAN INACTIVOS INICIAN SESIÓN
             else{
@@ -73,11 +73,11 @@
                 $_SESSION['email'] = $resultado["email"];
                 $_SESSION['dni'] = $resultado["dni"];
                 $_SESSION['id'] = $resultado["username"];
-                header("location:inicio");
+                header("location: ../index.php");
             }
         }
         else{
-            header("Location: login?error=true");
+            header("Location: ../login.php?error=true");
         }
     }
 
@@ -102,265 +102,6 @@
         }
     }
 
-   
-
-    //ENVIAMOS LA INFORMACION DE UNA CONSULTA A JAVASCRIPT POR MEDIO DE FETCH
-    $dataP = ["success"=>false];
-    $_POST = json_decode(file_get_contents('php://input'), true);
-    if (isset($_POST['pantalla'])){//SI SE HA DECODIFICADO CORRECTAMENTE ENTRARA EN LA FUNCIÓN
-        ajaxPantalla();
-    }
-
-    function ajaxPantalla(){
-        //ALMACENAMOS EN UNA VARIABLE EL VALOR QUE SE ENVIO POR JAVASCRIPT
-        $mac = $_POST['pantalla']; 
-
-        //HACEMOS LA CONSULTA EN LA BASE DE DATOS UTILIZANDO LA VARIABLE ENVIADA EN JAVASCRIPT
-        $con = conexion();
-        $consulta="SELECT * FROM PANTALLA WHERE mac_pantalla = '$mac'";
-        $stm = $con->query($consulta);
-        $resultado = $stm->fetch();
-         
-        //ALMACENAMOS EN UN ARRAY ASOCIATIVO EL RESULTADO DE LA CONSULTA
-
-        $cont=0;
-        while ($resultado){
-        $datos[$cont] = [
-            'mac_pantalla' => $resultado['mac_pantalla'], 
-            'ubicacion' => $resultado['ubicacion'], 
-            'nombre' => $resultado['nombre']
-            ];
-        $cont++;
-        $resultado = $stm->fetch();
-
-        }
-
-        $dataP = ["success"=>true,'pantalla' => $datos];
-        
-        die(json_encode($dataP));
-    }
-
-    //   !!!    AJAX USUARIOS    !!!
-    //   !!!    AJAX USUARIOS    !!!
-
-
-    $dataU = ["success"=>false];
-    $_POST = json_decode(file_get_contents('php://input'), true); //DECODIFICAMOS LA INFORMACIÓN RECIBIDA DE JAVASCRIPT, IGUAL PARA CADA ITERACION DE AJAX(FUNCTION)
-    if (isset($_POST['usuario'])){//SI SE HA DECODIFICADO CORRECTAMENTE ENTRARA EN LA FUNCIÓN
-        ajaxUser();
-    }
-
-    function ajaxUser(){
-        //ALMACENAMOS EN UNA VARIABLE EL VALOR QUE SE ENVIO POR JAVASCRIPT
-        $username = $_POST['usuario']; 
-
-        //HACEMOS LA CONSULTA EN LA BASE DE DATOS UTILIZANDO LA VARIABLE ENVIADA EN JAVASCRIPT
-        $con = conexion();
-        $consulta="SELECT * FROM USUARIO WHERE username = '$username'";
-        $stm = $con->query($consulta);
-        $resultado = $stm->fetch();
-
-        //ALMACENAMOS EN UN ARRAY ASOCIATIVO EL RESULTADO DE LA CONSULTA
-
-        $cont=0;
-        while ($resultado){
-        $datos[$cont] = [
-            'username' => $resultado['username'], 
-            'clave' => $resultado['clave'], 
-            'nombre' => $resultado['nombre'], 
-            'email' => $resultado['email'], 
-            'dni' => $resultado['dni'], 
-            'inactivo' => $resultado['inactivo'], 
-            'id_rol' => $resultado['id_rol']
-            ];
-        $cont++;
-        $resultado = $stm->fetch();
-
-        }
-
-        $dataU = ["success"=>true,'usuario' => $datos];
-
-        die(json_encode($dataU));
-    }
-
-
-    //   !!!    AJAX PUBLICACION    !!!
-    //   !!!    AJAX PUBLICACION    !!!
-
-    //FETCH PUBLICACION
-    $dataN = ["success"=>false];
-    $_POST = json_decode(file_get_contents('php://input'), true);
-    if (isset($_POST['news'])){//SI SE HA DECODIFICADO CORRECTAMENTE ENTRARA EN LA FUNCIÓN
-        ajaxNews();
-    }
-
-    // FUNCION PARA ENVIAR DATOS DE UNA PUBLICACION
-    function ajaxNews(){
-        //ALMACENAMOS EN UNA VARIABLE EL VALOR QUE SE ENVIO POR JAVASCRIPT
-        $id = $_POST['news']; 
-
-        //HACEMOS LA CONSULTA EN LA BASE DE DATOS UTILIZANDO LA VARIABLE ENVIADA EN JAVASCRIPT
-        $con = conexion();
-        $consulta="SELECT * FROM PUBLICACION, ESTADO WHERE id = id_estado AND id_publicacion = '$id'";
-        $stm = $con->query($consulta);
-        $resultado = $stm->fetch();
-         
-        //ALMACENAMOS EN UN ARRAY ASOCIATIVO EL RESULTADO DE LA CONSULTA
-
-        $cont=0;
-        while ($resultado){
-        $datos[$cont] = [
-            'id_publicacion' => $resultado['id_publicacion'], 
-            'fechaCreacion' => $resultado['fechaCreacion'], 
-            'titulo' => $resultado['titulo'], 
-            'fechaInicio' => $resultado['fechaInicio'], 
-            'fechaFin' => $resultado['fechaFin'], 
-            'mensaje' => $resultado['mensaje'], 
-            'imagen' => $resultado['imagen'],
-            'fechaAprobacion' => $resultado['fechaAprobacion'], 
-            'escritor' => $resultado['escritor'],
-            'aprobador' => $resultado['aprobador'], 
-            'estado' => $resultado['nombre_estado']
-        ];
-        $cont++;
-        $resultado = $stm->fetch();
-
-        }
-        
-
-        $dataN = ["success"=>true,'news' => $datos];
-        
-        die(json_encode($dataN));
-    }
-
-
-    //REALIZA UNA CONSULTA Y ESCRIBE EN EL DOCUMENTO EL CONTENIDO DE LA MISMA
-    function checkboxPantallas(){
-        //include_once "base.php";
-
-        //CREO UN OBJETO DE CONEXIÓN USANDO LA FUNCIÓN DE CONEXIÓN() 
-        $con = conexion();
-
-        //REALIZAMOS LA CONSULTA
-        $consulta="SELECT * FROM PANTALLA";
-        
-        //EJECUTAMOS LA CONSULTA SQL (EL RESULTADO VIENE EN UN OBJETO DE TIPO STATEMENT)
-        $stm = $con->query($consulta);
-
-        //CREAMOS UN OBJETO PARA CADA FILA DE LA CONSULTA
-        $resultado = $stm->fetch();
-
-        //RECORRER TODAS LOS VALORES OBTENIDOS
-        $cont=1;
-        while ($resultado){
-            //MOSTRAMOS LOS DATOS DE LA CONSULTA
-            echo '<div class="col-4">';
-            echo '<input class="form-check-input" type="checkbox" name="pantalla'.$cont.'" value="'.$resultado["mac_pantalla"].'">';
-            echo '<label class="form-check-label margin_check" for="flexCheckDefault">'.$resultado["nombre"].'</label><br>';
-            echo '</div>';
-
-            //PASAR A LA SIGUIENTE FILA
-            $cont++;
-            $resultado = $stm->fetch();
-        }
-        $cont--;
-
-        //ALMACENAMOS EN UNA VARIABLE SUPERGLOBAL EL NÚMERO DE PANTALLAS
-        $_SESSION['numPantallas'] = $cont;
-    }
-
-
-    // FUNCION DELETE PUBLICACION, USUARIO, PANTALLA
-
-    function deleteEntry($tabla, $id){
-        $con = conexion();
-        $pkey = "";
-
-        switch($table){
-            case "PUBLICACION":
-                $pkey = "id_publicacion";
-                break;
-            case "USUARIO":
-                $pkey = "username";
-                break;
-            case "PANTALLA":
-                $pkey = "mac_pantalla"; 
-                break;
-        }
-
-        $consulta="DELETE FROM '$tabla' WHERE '$pkey' = '$id'";
-
-        $con->query($consulta);
-
-    }
-
-
-
-    function misMensajes(){
-        //include_once "base.php";
-
-        session_start();
-        //CREO UN OBJETO DE CONEXIÓN USANDO LA FUNCIÓN DE COfNEXIÓN() 
-        $con = conexion();
-
-        $id = $_SESSION["id"];
-        //REALIZAMOS LA CONSULTA FILTRADA POR USUARIO
-        $consulta="SELECT * FROM PUBLICACION WHERE escritor = '$id'";
-        
-        //EJECUTAMOS LA CONSULTA SQL (EL RESULTADO VIENE EN UN OBJETO DE TIPO STATEMENT)
-        $stm = $con->query($consulta);
-
-        //CREAMOS UN OBJETO PARA CADA FILA DE LA CONSULTA
-        $resultado = $stm->fetch();
-
-        //RECORRER TODAS LOS VALORES OBTENIDOS
-        $cont=1;
-
-        if ($resultado){
-            while ($resultado){
-            
-                //MOSTRAMOS LOS DATOS DE LA CONSULTA
-                echo '<div class="col-4">';
-                echo '<input class="form-check-input" type="checkbox" name="publicacion'.$cont.'" id= mensaje"'.$resultado["id_publicacion"].'">';
-                echo '<label class="form-check-label margin_check" for="flexCheckDefault">'.$resultado["titulo"].' </label><br>';
-                echo '</div>';
-    
-                //PASAR A LA SIGUIENTE FILA
-                $cont++;
-                $resultado = $stm->fetch();
-            }
-        } else {
-            echo '<h1>Todavía no has escrito ningun mensaje</h1>';
-        }
-
-        
-    }
-
-    function miPerfil(){
-        session_start();
-        //CREO UN OBJETO DE CONEXIÓN USANDO LA FUNCIÓN DE CONEXIÓN() 
-        $con = conexion();
-
-        $id = $_SESSION["id"];
-        //REALIZAMOS LA CONSULTA FILTRADA POR USUARIO
-        $consulta="SELECT * FROM USUARIO WHERE username = '$id'";
-        
-        //EJECUTAMOS LA CONSULTA SQL (EL RESULTADO VIENE EN UN OBJETO DE TIPO STATEMENT)
-        $stm = $con->query($consulta);
-
-        $resultado = $stm->fetch();
-
-        echo '<div>';
-        echo '';//AGREGAR ICONOS DE USUARIO?
-        echo '<h2>'.$resultado["username"].' </h2>';//NOMBRE DE USUARIO
-        echo '';//NUMERO DE MENSAJES ESCRITOS
-        echo '';//ROL
-        echo '';//BOTON EDITAR PERFIL
-        echo '</div>';
-
-        //CREAMOS UN OBJETO PARA CADA FILA DE LA CONSULTA
-        
-    }
 
      //ACTIVA LA FUNCIÓN DE INSERTAR PANTALLA SI SE ENVIA POR POST ALGO DESDE EL BOTÓN 'pantaButton'
     if(isset($_POST['pantaButton'])) {
@@ -392,7 +133,7 @@
             $con = null;
 
             //REGRESAMOS A LA PÁGINA INDEX (PENDIENTE SACAR UN MENSAJE DE APROBACIÓN)
-            header("location: inicio");
+            header("location: ../index.php");
 
         }catch(Exception $e){
            echo "Error al insertar a los datos<br>".$e;
@@ -423,10 +164,10 @@
             $conexion = null; //CERRAMOS LA CONEXION DE LA BD
 
             //REDIRECCIONAMOS
-            header("location: inicio");
+            header("location: ../index.php");
         }else{
             $conexion = null;
-            header("location: inicio?repetidos=true"); //COLOCAR UN ALERT (EMAIL O USUARIO YA REGISTRADOS EN LA BD) AQUI MIRAR LA MANERA DE RELLENAR LOS CAMPOS NUEVAMENTE AL RECARGAR LA WEB
+            header("location: ../index.php?repetidos=true"); //COLOCAR UN ALETRT (EMAIL O USUARIO YA REGISTRADOS EN LA BD) AQUI MIRAR LA MANERA DE RELLENAR LOS CAMPOS NUEVAMENTE AL RECARGAR LA WEB
         }
     }
 
@@ -471,9 +212,6 @@
             
              //SOLO SE EJECUTA SI SE HA SUBIDO UNA IMAGEN
             if($_FILES['publiImg']['name'] != ""){
-                
-                //ASIGNAMOS EL NOMBRE DEL ARCHIVO SUBIDO A LA VARIABLE IMG
-                $img = $_FILES['publiImg']['name'];
 
                 //RECIBIMOS LOS DATOS DE LA IMAGEN
                 $nombreImg = $_FILES['publiImg']['name'];
@@ -514,6 +252,8 @@
                     $image->destroy();
                     //ELIMINAMOS EL PDF PARA DEJAR SOLO LA IMAGEN CONVERTIDA
                     unlink($ruta_destino.$nombreImg);
+                }else{
+                    $img = $nombreImg;
                 }
             }else{
                 $img = NULL;
@@ -571,7 +311,7 @@
             $con = null;
 
             //REGRESAMOS A LA PÁGINA INDEX (PENDIENTE SACAR UN MENSAJE DE APROBACIÓN)
-            header("location: inicio");
+            header("location: ../index.php");
 
         }catch(Exception $e){
            echo "Error al insertar a los datos<br>".$e;
@@ -597,7 +337,7 @@
         //echo $_SESSION['rol'];
 
         if ($_SESSION['rol'] == '3'){
-            header('location: inicio');
+            header('location: ../index.php');
         }
     }
 

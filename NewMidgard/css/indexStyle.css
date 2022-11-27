@@ -1,6 +1,17 @@
+html {
+
+    height: 100%;
+    box-sizing: border-box;
+
+}
+
 body{
     text-align: left;
     background-color: #fde2ad; /* DAVID DESCOMENTALO!!... */
+    position: relative;
+    min-height: 100%; 
+    padding-bottom: 6.74rem;
+    box-sizing: inherit;
 }
 .margin_check{ /* PREGUNTAR PORQUE ml-num no funciona */
     margin-left: 5px;
@@ -17,8 +28,7 @@ select{
     padding: 5px;
     color: white;
 }
-/*Esto es el Menu*/
-
+/* Esto es el Menu */
 
 #menu{
     background-color: #f26b00;
@@ -37,8 +47,6 @@ section h2{
     margin: 0 auto 1rem;
     font-family: var(--font-sans-serif);
 }
-
-
 
 .submenu{	
 	margin-top: 0;
@@ -81,6 +89,9 @@ padding: 20px;
 /* Modal con Estilo */
 
 .modal-body{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
     align-items: center;
 }
 
@@ -95,11 +106,8 @@ padding: 20px;
 }
 
 .perfilInput{
-    text-decoration: none;
     text-align: center;
-    outline: none;
 }
-
 
 .modal-content{
     border: 4px double #ecab78;
@@ -107,96 +115,36 @@ padding: 20px;
     background-color: #fde2ad;
 }
 
+.modal-footer{
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    align-content: center;
+}
+
 .btnModal{
     text-align: center;
     text-decoration: none;
     background-color: #fff4df;
+    display: inline-block;
+    width: 48%;
     border: 3px double #ecab78;
     border-radius: 5px;
     box-shadow: 6px 8px 10px 0px rgba(46,61,73,0.2);
-    color: black;
+    color: #575757;
     transition-duration: 0.5s;
     cursor: pointer;
 }
 
-/*WARZONE DANGER DANGER */
-/*WARZONE DANGER DANGER */
-/*WARZONE DANGER DANGER */
-/*WARZONE DANGER DANGER */
-
-.grupo-input { /*Bien*/
-	position: relative;
+.btnModal i{
+    color: #575757;
 }
 
-.input-error { /*Bien*/
-	font-size: 12px;
-	margin-bottom: 0;
-	display: none;
-}
-
-.input-error-activo { /*Bien*/
-	display: block;
-}
-
-.validacion-estado { /*Bien*/
-	position: absolute;
-	right: 10px;
-	bottom: 10px;
-	z-index: 100;
-	font-size: 20px;
-	opacity: 0;
-}
-
-.formulario__mensaje { /*Bien*/
-	height: 45px;
-	line-height: 45px;
-	background: #F66060;
-	padding: 0 15px;
-	border-radius: 3px;
-	display: none;
-}
-
-.mensaje-activo { /*Bien*/
-	display: block;
-}
-
-.formulario__mensaje p { /*Bien*/
-	margin: 0;
-}
-
-.mensaje-exito { /*Bien*/
-	font-size: 14px;
-	color: #119200;
-	display: none;
-}
-
-.mensaje-exito-activo { /*Bien*/
-	display: block;
-}
-
-/* ----- -----  Estilos para Validacion ----- ----- */
-.formulario__grupo-correcto .validacion-estado {
-	color: #1ed12d;
-	opacity: 1;
-}
-
-.formulario__grupo-incorrecto .form-label {
-	color: #bb2929;
-}
-
-.formulario__grupo-incorrecto .validacion-estado {
-	color: #bb2929;
-	opacity: 1;
-}
-
-.formulario__grupo-incorrecto .form-control {
-	border: 3px solid #bb2929;
+#nickname{
+    color: red;
 }
 
 
-
-
-/*WARZONE DANGER DANGER */
 
 /*Estilos de la listas de los CRUDs*/
 
@@ -273,6 +221,7 @@ padding: 20px;
 .botones{
     display: flex;
     flex-direction: column-reverse;
+    background-color: aquamarine;
     border-top-right-radius: 5px;
     width: 100%;
 
@@ -280,7 +229,7 @@ padding: 20px;
 
 .boton{
     font-size: 30px;
-    height: 100%;
+    height: 50%;
     text-align: center;
     text-decoration: none;
     display: inline-block;
@@ -333,14 +282,78 @@ padding: 20px;
     }
 }
 
-/*  CARRUSEL DEL INDEX */
-.carruselPantalla{
-    width: 100px; /* Damos un ancho fijo para que no cambie su ancho al cambiar el texto */
+/*   MODAL EXPOSITOR  */
+
+.tablaVer {
+    border: 4px double #ecab78;
+    background-color: #ECAB78;
+    width: 100%;
+    text-align: left;
+    border-collapse: collapse;
 }
+.tablaVer td, table.tablaVer th {
+    border: 2px solid #f78831;
+    padding: 4px 10px;
+}
+.tablaVer tbody td {
+    font-size: 16px;
+}
+.tablaVer tr:nth-child(even) {
+    background: #FDE2AD;
+}
+.tablaVer td:nth-child(even) {
+    background: #FFF4DF;
+}
+.tablaVer tfoot td {
+    font-size: 16px;
+}
+
+/*  FOOTER  */
 
 footer{
     border-top: 5px solid #c13912;
     background-color: #f26b00;
+    position: absolute;
+    bottom: 0;
+    min-width: 100%;
+
 }
 
+.footercontainer {
+
+    display: flex;
+    width: 100%;
+    justify-content: stretch;
+    margin-top: auto;
+    min-height: 100%;
+
+}
+
+.footercontainer > .footerapartado {
+
+    text-align: center;
+    width: 100%;
+    color: white;
+
+}
+
+.footercontainer > .footerapartado > h4 {
+
+    font-size: large;
+
+}
+
+.footercontainer > .footerapartado > p {
+
+    color: rgba(211, 211, 211, 0.674);
+    font-size: small;
+    margin-bottom: -0.5%;
+}
+
+.footercontainer > .footerapartado > p > a {
+
+    text-decoration: none;
+    color: rgba(211, 211, 211, 0.674);
+
+}
 

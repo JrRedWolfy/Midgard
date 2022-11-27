@@ -47,6 +47,7 @@ function menuCentrado(){
     }
 }
 
+
 //TOMA LA FECHA ACTUAL Y COLOCA EL VALOR MINIMO A LA FECHA DE LOS FORMULARIOS
 function thisDate() {
     let fecha = new Date();
@@ -154,6 +155,44 @@ function verificarForm(){
     }
 }
 
+//MUESTRA LAS CASILLAS DE CAMBIO DE CONTRASEÑA
+function showPassField(){
+
+    let action = document.getElementById("passFields").innerHTML;
+    let passField;
+    if (action == ""){
+        passField = '<label for="clave" class="form-label mt-2">Contraseña Actual</label><input type="password" class="form-control" id="clave" name="clave" required><label for="clave" class="form-label mt-2">Contraseña Nueva</label><input type="password" class="form-control" id="clave" name="clave" required><label for="clave" class="form-label mt-2">Repetir Contraseña Nueva</label><input type="password" class="form-control" id="clave" name="clave" required>'
+        document.getElementById("changePass").innerHTML = '<i class="fas fa-lock"></i> Cancelar';
+        document.getElementById("confirmarPass").style.display = "block";
+    } else {
+        passField = "";
+        document.getElementById("changePass").innerHTML = '<i class="fas fa-unlock"></i> Cambiar Contraseña';
+        document.getElementById("confirmarPass").style.display = "none";
+    }
+
+    document.getElementById("passFields").innerHTML = passField;
+
+}
+
+function asignId(id){
+
+    let tabla = document.getElementById("deleteTotal").getAttribute("name");
+    switch(tabla){
+        case "userButton":
+            tabla = "USUARIO";
+            break;
+        case "newsButton":
+            tabla = "PUBLICACION";
+            break;
+        case "pantallaButton":
+            tabla = "PANTALLA";
+            break;
+    }
+
+    document.getElementById("deleteTotal").setAttribute("onclick", "deleteEntry('"+ tabla + "', '" + id.name +"');");
+}
+
+
 //MARCA TODAS LAS CASILLAS DEL FORMULARIO
 function marcarTodos(){
     let checkbox = document.getElementsByClassName('form-check-input');
@@ -177,7 +216,7 @@ function marcarTodos(){
 }
 
 //ELIMINA LOS VALORES DEL MODAL AL CERRARSE 
-const arrayModales = document.querySelectorAll('.modal'); //SELECCIONA TODOS LOS ELEMENTOS QUE TIENEN LA CLASE MODAL
+const arrayModales = document.querySelectorAll('.modalForm'); //SELECCIONA TODOS LOS ELEMENTOS QUE TIENEN LA CLASE MODAL
 arrayModales.forEach(modal =>{ //PARA CADA MODAL REALIZAMOS LO SIGUIENTE
     modal.addEventListener('hidden.bs.modal', function () { //SACADO DE BOOTSTRAP MODAL/EVENTS ES EL NOMBRE DE LA FUNCION QUE SE ENCARGA DE CERRAR EL MODAL
         let form = document.getElementsByTagName("form");
@@ -190,30 +229,18 @@ arrayModales.forEach(modal =>{ //PARA CADA MODAL REALIZAMOS LO SIGUIENTE
         document.getElementById("passFields").innerHTML = "";
         document.getElementById("changePass").innerHTML = '<i class="fas fa-unlock"></i> Cambiar Contraseña';
         document.getElementById("confirmarPass").style.display = "none";
-
     });
 });
 
-//MUESTRA LAS CASILLAS DE CAMBIO DE CONTRASEÑA
-function showPassField(){
 
-    let action = document.getElementById("passFields").innerHTML;
-    let passField;
-    if (action == ""){
-        passField = '<label for="clave" class="form-label mt-2">Contraseña Actual</label><input type="password" class="form-control" id="clave" name="clave" required><label for="clave" class="form-label mt-2">Contraseña Nueva</label><input type="password" class="form-control" id="clave" name="clave" required><label for="clave" class="form-label mt-2">Repetir Contraseña Nueva</label><input type="password" class="form-control" id="clave" name="clave" required>'
-        document.getElementById("changePass").innerHTML = '<i class="fas fa-lock"></i> Cancelar';
-        document.getElementById("confirmarPass").style.display = "block";
-    } else {
-        passField = "";
-        document.getElementById("changePass").innerHTML = '<i class="fas fa-unlock"></i> Cambiar Contraseña';
-        document.getElementById("confirmarPass").style.display = "none";
-    }
+//ELIMINA LOS VALORES DEL MODAL NOTICIA AL CERRARSE
+modalNews = document.getElementById('modalNews'); //SELECCIONA MODAL NOTICIA
+
+modalNews.addEventListener('hidden.bs.modal', function () { //SACADO DE BOOTSTRAP MODAL/EVENTS ES EL NOMBRE DE LA FUNCION QUE SE ENCARGA DE CERRAR EL MODAL
+    document.getElementById("imgPublicacion").innerHTML = "";
+});
 
 
-    
-    document.getElementById("passFields").innerHTML = passField;
-
-}
 
 //CARRUSEL INDEX
 function next(){
@@ -258,45 +285,19 @@ function prev(){
     }
 }
 
-//  !!!    AJAX USUARIOS    !!!
-//  !!!    AJAX USUARIOS    !!!
-//  !!!    AJAX USUARIOS    !!!
-//  !!!    AJAX USUARIOS    !!!
-//  !!!    AJAX USUARIOS    !!!
 
-function ajaxUser(div){
-    
-    // boton.id / boton.name
-    //CREAREMOS UNA CONSTANTE QUE ME RECOGERA EL DATO QUE QUIERO ENVIAR (TENER EN CUENTA EL NOMBRE YA QUE SE UTILIZARA EN)
-    let dataU = {usuario : div.id};
-    
-    fetch("base.php",{//ESPECIFICAMOS LA RUTA A LA QUE SE ENVIA
-        method: 'POST',
-        body: JSON.stringify(dataU), //CODIFICAMOS LA VARIABLE PARA ENVIARLA A PHP
-        headers:{ //LE INDICAMOS AL PROGRAMA QUE TIPO DE INFORMACIÓN ENVIAMOS
-            'Accept' : 'application/json',
-            'Content-Type' : 'application/json',
-        }
-    }).then(response =>{//RECIBIMOS LA RESPUESTA EN UN OBJETO TIPO JSON
-        
-        return response.json();
-        
-    }).then(dataU => {
+//HABILITA LOS POPOVERS DE TODO EL DOCUMENTO
+var popoverTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="popover"]'))
+var popoverList = popoverTriggerList.map(function (popoverTriggerEl) {
+  return new bootstrap.Popover(popoverTriggerEl)
+})
 
-        // Toda la parafernalia
-        // Toda la parafernalia
-        // Toda la parafernalia
-        // Toda la parafernalia
+//BORRA EL POPOVER AL SIGUIENTE CLICK
+var popover = new bootstrap.Popover(document.querySelector('.popover-dismiss'), {
+    trigger: 'focus'
+  })
 
-        //Ejemplo
-        document.getElementById("resultados").innerHTML= "<p>"+dataU.usuario[0]['id_rol']+"</p>";
-        
-    }).catch(error => console.error(error));//EN CASO DE ERROR ME LO MUESTRA POR CONSOLA
-}
-
-//  !!!    AJAX PANTALLAS    !!!
-//  !!!    AJAX PANTALLAS    !!!
-//  !!!    AJAX PANTALLAS    !!!
+  
 //  !!!    AJAX PANTALLAS    !!!
 //  !!!    AJAX PANTALLAS    !!!
 
@@ -319,24 +320,64 @@ function ajaxPantalla(div){
         
     }).then(dataP => {
 
-        // Toda la parafernalia
-        // Toda la parafernalia
-        // Toda la parafernalia
-        // Toda la parafernalia
-
-        document.getElementById("resultados").innerHTML= "<p>"+dataP.pantalla[0]['mac_pantalla']+"</p>";
-        //Ejemplo
+        document.getElementById("nombre").innerHTML = dataP.pantalla[0]["nombre"];
+        document.getElementById("direccion").innerHTML = dataP.pantalla[0]["mac_pantalla"];
+        document.getElementById("ubicacion").innerHTML = dataP.pantalla[0]["ubicacion"];
+        
         //document.getElementById("resultados").innerHTML= "<p>"+data.usuario[0]['id_rol']+"</p>";
         
     }).catch(error => console.error(error));//EN CASO DE ERROR ME LO MUESTRA POR CONSOLA
 }
 
+//  !!!    AJAX USUARIOS    !!!
+//  !!!    AJAX USUARIOS    !!!
 
-//  !!!    AJAX NEWS    !!!
-//  !!!    AJAX NEWS    !!!
-//  !!!    AJAX NEWS    !!!
-//  !!!    AJAX NEWS    !!!
-//  !!!    AJAX NEWS    !!!
+function ajaxUser(div){
+    
+    // boton.id / boton.name
+    //CREAREMOS UNA CONSTANTE QUE ME RECOGERA EL DATO QUE QUIERO ENVIAR (TENER EN CUENTA EL NOMBRE YA QUE SE UTILIZARA EN)
+    let dataU = {usuario : div.id};
+    
+    fetch("base.php",{//ESPECIFICAMOS LA RUTA A LA QUE SE ENVIA
+        method: 'POST',
+        body: JSON.stringify(dataU), //CODIFICAMOS LA VARIABLE PARA ENVIARLA A PHP
+        headers:{ //LE INDICAMOS AL PROGRAMA QUE TIPO DE INFORMACIÓN ENVIAMOS
+            'Accept' : 'application/json',
+            'Content-Type' : 'application/json',
+        }
+    }).then(response =>{//RECIBIMOS LA RESPUESTA EN UN OBJETO TIPO JSON
+        
+        return response.json();
+        
+    }).then(dataU => {
+
+        document.getElementById("user").innerHTML = dataU.usuario[0]["username"];
+        document.getElementById("pass").innerHTML = dataU.usuario[0]["clave"];
+        document.getElementById("nombre").innerHTML = dataU.usuario[0]["nombre"];
+        document.getElementById("email").innerHTML = dataU.usuario[0]["email"];
+        document.getElementById("dni").innerHTML = dataU.usuario[0]["dni"];
+
+        if(dataU.usuario[0]["inactivo"] == 0){
+            document.getElementById("inactive").innerHTML = "No";
+        } else{
+            document.getElementById("inactive").innerHTML = "Si";
+        }
+
+        switch(dataU.usuario[0]["id_rol"]){
+            case 1:
+                document.getElementById("funcion").innerHTML = "Administrador";
+                break;
+            case 2:
+                document.getElementById("funcion").innerHTML = "Aprobador";
+                break;
+            case 3:
+                document.getElementById("funcion").innerHTML = "Publicador";
+                break;
+        }
+        
+    }).catch(error => console.error(error));//EN CASO DE ERROR ME LO MUESTRA POR CONSOLA
+}
+
 
 function ajaxNews(div){
     
@@ -356,242 +397,26 @@ function ajaxNews(div){
         return response.json();
         
     }).then(dataN => {
-
-
-        let tabla = document.getElementById("tablaUser");
-        let tdElement = tabla.querySelectorAll("td");
-
-        forEach(object e :tdElement){
-            e.innerHTML = "Hai";
+        
+        if(dataN.news[0]["imagen"] != null){
+            document.getElementById("imgPublicacion").innerHTML = '<img class="img-fluid" src="img/userImage/'+dataN.news[0]["imagen"]+'">';
         }
 
-        // Toda la parafernalia
-        // Toda la parafernalia
-        // Toda la parafernalia
-        // Toda la parafernalia
+        document.getElementById("title").innerHTML = dataN.news[0]["titulo"];
+        document.getElementById("msg").innerHTML = dataN.news[0]["mensaje"];
+        document.getElementById("writer").innerHTML = dataN.news[0]["escritor"];
+        document.getElementById("dateS").innerHTML = dataN.news[0]["fechaInicio"];
+        document.getElementById("dateE").innerHTML = dataN.news[0]["fechaFin"];
+        document.getElementById("state").innerHTML = dataN.news[0]["estado"];
+        document.getElementById("aprove").innerHTML = dataN.news[0]["aprobador"];
+        document.getElementById("dateAprove").innerHTML = dataN.news[0]["fechaAprobacion"];
 
-        document.getElementById("resultados").innerHTML= "<p>"+dataN.news[0]['titulo']+"</p>";
-        //Ejemplo
-        //document.getElementById("resultados").innerHTML= "<p>"+data.usuario[0]['id_rol']+"</p>";
+        if (dataN.news[0]["estado"] == "Pendiente"){
+            document.getElementById("NewPendiente").removeAttribute("hidden");
+        } else {
+            document.getElementById("NewPendiente").setAttribute("hidden", true);
+        }
         
     }).catch(error => console.error(error));//EN CASO DE ERROR ME LO MUESTRA POR CONSOLA
 }
 
-
-//  !!!     WARZONE     !!!
-//  !!!     VALIDAR     !!!
-//  !!!     VALIDAR     !!!
-//  !!!     WARZONE     !!!
-
-/*Bien*/
-const formPantalla = document.getElementById('formPantalla');
-const formulario = document.getElementById('formUser');
-const formMensaje = document.getElementById('formPubli');
-
-const inputs = document.querySelectorAll('input');
-const textareas = document.querySelectorAll('textarea')
-
-const expresiones = { /*Bien*/
-	username: /^[a-zA-Z0-9\_\-]{4,50}$/, // Letras, numeros, guion y guion_bajo
-	fullname: /^[a-zA-ZÀ-ÿ\s]{4,50}$/, // Letras y espacios, pueden llevar acentos.
-	clave: /^(?=.*[0-9])[a-zA-Z0-9!@#$%^&*]{6,20}$/, // 6 a 20 digitos. minimo 1 numero
-	email: /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/, // Validar Email
-	dni: /^\d{8}[A-Z]$/, // 8 digitos.
-    asunto: /^[0-9a-zA-Z!@#$%^&*À-ÿ\s]{4,30}$/, // Validar Asunto
-    mac: /^([0-9a-f]{1,2}[\.:-]){5}([0-9a-f]{1,2})$/, // Validar formato Mac
-    nombre: /^[a-zA-Z0-9\_\-]{4,16}$/ // Validar Nombre
-    
-}
-
-const campos = { /*Bien*/
-    // Campos Modal Usuario
-	username: false,
-	fullname: false,
-	clave: false,
-	email: false,
-	dni: false,
-
-    // Campos Modal Publicacion
-    asunto: false,
-	dateA: false,
-	dateB: false,
-    mensaje: false,
-    publiImg: false,
-
-    // Campos Modal Pantalla
-    nombre: false,
-	mac: false
-}
-
-inputs.forEach((input) => { /*Bien*/
-	input.addEventListener('keyup', validarFormulario);
-	input.addEventListener('blur', validarFormulario);
-});
-
-textareas.forEach((textarea) => { /*Bien*/
-	textarea.addEventListener('keyup', validarFormulario);
-	textarea.addEventListener('blur', validarFormulario);
-});
-
-
-function validarFormulario(e){ /*Bien*/
-	switch (e.target.name) {
-		case "username":
-			validarCampo(expresiones.username, e.target, 'username');
-		break;
-		case "fullname":
-			validarCampo(expresiones.fullname, e.target, 'fullname');
-		break;
-		case "clave":
-			validarCampo(expresiones.clave, e.target, 'clave');
-		break;
-		case "email":
-			validarCampo(expresiones.email, e.target, 'email');
-		break;
-		case "dni":
-			validarCampo(expresiones.dni, e.target, 'dni');
-		break;
-        case "asunto":
-			validarCampo(expresiones.asunto, e.target, 'asunto');
-		break;
-        case "nombre":
-			validarCampo(expresiones.nombre, e.target, 'nombre');
-		break;
-		case "mac":
-			validarCampo(expresiones.mac, e.target, 'mac');
-		break;
-        case "mensaje":
-			alert('Rotom');
-		break;
-        case "ubicacion":
-			alert('Cofagriguss');
-		break;
-	}
-}
-
-const validarCampo = (expresion, input, campo) => {
-	if(expresion.test(input.value)){
-		document.getElementById(`grupo__${campo}`).classList.remove('formulario__grupo-incorrecto');
-		document.getElementById(`grupo__${campo}`).classList.add('formulario__grupo-correcto');
-		document.querySelector(`#grupo__${campo} i`).classList.add('fa-check-circle');
-		document.querySelector(`#grupo__${campo} i`).classList.remove('fa-times-circle');
-		document.querySelector(`#grupo__${campo} .input-error`).classList.remove('input-error-activo');
-		campos[campo] = true;
-	} else {
-		document.getElementById(`grupo__${campo}`).classList.add('formulario__grupo-incorrecto');
-		document.getElementById(`grupo__${campo}`).classList.remove('formulario__grupo-correcto');
-		document.querySelector(`#grupo__${campo} i`).classList.add('fa-times-circle');
-		document.querySelector(`#grupo__${campo} i`).classList.remove('fa-check-circle');
-		document.querySelector(`#grupo__${campo} .input-error`).classList.add('input-error-activo');
-		campos[campo] = false;
-	}
-}
-
-formulario.addEventListener('submit', (e) => {
-	e.preventDefault();
-    let rolSelected = false;
-
-    let rol = document.getElementById('rol');
-    
-    if (rol.value != "select"){
-        rolSelected = true;
-    }
-
-
-	if(campos.username && campos.fullname && campos.clave && campos.email && campos.dni && rolSelected ){
-		formulario.reset();
-
-		document.getElementById('mensaje-exito').classList.add('mensaje-exito-activo');
-		setTimeout(() => {
-			document.getElementById('mensaje-exito').classList.remove('mensaje-exito-activo');
-		}, 5000);
-
-		document.querySelectorAll('.formulario__grupo-correcto').forEach((icono) => {
-			icono.classList.remove('formulario__grupo-correcto');
-		});
-	} else {
-		document.getElementById('formulario__mensaje').classList.add('mensaje-activo');
-	}
-});
-// WARZONE END VALIDACION USUARIO
-
-
-//  !!!     WARZONE     !!!
-//  !!! VALIDAR_MENSAJE !!!
-//  !!!     WARZONE     !!!
-//  !!!     WARZONE     !!!
-
-/*Bien*/
-
-formMensaje.addEventListener('submit', (e) => {
-	e.preventDefault();
-
-	if(campos.asunto && campos.dateA && campos.dateB && campos.mensaje && campos.publiImg){
-		formMensaje.reset();
-
-		document.getElementById('mensaje-exito').classList.add('mensaje-exito-activo');
-		setTimeout(() => {
-			document.getElementById('mensaje-exito').classList.remove('mensaje-exito-activo');
-		}, 5000);
-
-		document.querySelectorAll('.formulario__grupo-correcto').forEach((icono) => {
-			icono.classList.remove('formulario__grupo-correcto');
-		});
-	} else {
-		document.getElementById('formulario__publicacion').classList.add('mensaje-activo');
-	}
-});
-// WARZONE END VALIDACION MENSAJE
-
-
-//  !!!      WARZONE     !!!
-//  !!! VALIDAR_PANTALLA !!!
-//  !!!      WARZONE     !!!
-//  !!!      WARZONE     !!!
-
-/*Bien*/
-
-formPantalla.addEventListener('submit', (e) => {
-	e.preventDefault();
-
-	if(campos.asunto && campos.dateA && campos.dateB){
-		formPantalla.reset();
-
-		document.getElementById('mensaje-exito').classList.add('mensaje-exito-activo');
-		setTimeout(() => {
-			document.getElementById('mensaje-exito').classList.remove('mensaje-exito-activo');
-		}, 5000);
-
-		document.querySelectorAll('.formulario__grupo-correcto').forEach((icono) => {
-			icono.classList.remove('formulario__grupo-correcto');
-		});
-	} else {
-		document.getElementById('formulario__pantalla').classList.add('mensaje-activo');
-	}
-});
-// WARZONE END VALIDACION PANTALLA
-
-
-
-
-
-// CORRIGE MAC ADDRESS
-var macAddress = document.getElementById("mac");
-
-    function formatMAC(e) {
-
-        // /i Ignora mayusculas
-        // Valida si las letras estan dentro de la A a la F, si no, coloca espacio en blanco
-        var r = /([a-f0-9]{2})([a-f0-9]{2})/i, str = e.target.value.replace(/[^a-f0-9]/ig, "");
-
-        while (r.test(str)) {
-            // Coloca : despues de cada 2 digitos
-            str = str.replace(r, '$1' + ':' + '$2');
-        }
-
-        e.target.value = str.slice(0, 17);
-
-    };
-
-// Comprueba cuando el usuario suelta la tecla
-macAddress.addEventListener("keyup", formatMAC, false);
