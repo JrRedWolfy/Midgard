@@ -1,0 +1,27 @@
+
+
+.footerdiv {
+
+    display:flex;
+    white-space:nowrap; 
+
+}
+
+.footerimage  {
+
+    margin-top: 0.5%;
+
+}
+
+.footertext{
+
+    margin-top: 0.5%;
+
+}
+
+.footertext > p{
+
+    margin-top: 3%;
+    margin-left: 5%;
+
+}
