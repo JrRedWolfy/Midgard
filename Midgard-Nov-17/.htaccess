@@ -1,0 +1,47 @@
+<IfModule mod_rewrite.c>
+
+    Options +FollowSymlinks
+    RewriteEngine On
+
+</IfModule>
+
+RewriteBase /
+DirectoryIndex index.php
+
+<IfModule mod_rewrite.c>
+
+    RewriteCond %{HTTPS} !=on
+    RewriteCond %{HTTP_HOST} ^www\.(.+)$ [NC]
+    RewriteRule ^ http://%1%{REQUEST_URI} [R=301,L]
+
+</IfModule>
+
+<IfModule mod_rewrite.c>
+
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+
+</IfModule>
+
+<FilesMatch "(\.(bak|config|sql|fla|psd|ini|log|sh|inc|swp|dist)|~)$">
+
+    Order allow,deny
+    Deny from all
+    Satisfy All
+
+</FilesMatch>
+
+RewriteRule ^inicio$ index.php [L,NC]
+RewriteRule ^mensajes$ misMensajes.php [L,NC]
+RewriteRule ^usuarios$ listaUsers.php [L,NC]
+RewriteRule ^publicaciones$ listaPublicaciones.php [L,NC]
+RewriteRule ^pantallas$ listaPantallas.php [L,NC]
+RewriteRule ^noticias$ carousel.php [L,NC]
+RewriteRule ^preguntasfrecuentes$ faq.html [L,NC]
+RewriteRule ^login$ login.php [L,NC]
+
+ErrorDocument 400 /errorPages/error400.html
+ErrorDocument 401 /errorPages/error401.html
+ErrorDocument 403 /errorPages/error403.html
+ErrorDocument 404 /errorPages/error404.html
+ErrorDocument 500 /errorPages/error500.html

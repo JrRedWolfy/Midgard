@@ -1,0 +1,69 @@
+.mainBox{
+    width: 15%;
+    border-radius: 5px;
+    padding: 5px;
+    margin: 40px 0px;
+}
+
+.pc{
+    background-color: antiquewhite;
+    padding: 15px 20px;
+    border-top-left-radius: 5px;
+}
+
+.lateral{
+    display: flex;
+    flex-direction: row;
+}
+
+.botones{
+    display: flex;
+    flex-direction: column-reverse;
+    background-color: aquamarine;
+    border-top-right-radius: 5px;
+    width: 100%;
+
+}
+
+.boton{
+    
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    transition-duration: 0.5s;
+    cursor: pointer;
+}
+
+.red{
+    background-color: white;
+    border: 4px solid #a51e1e;
+    border-top: 2px solid #a51e1e;
+    height: 50%;
+}
+
+.onRed:hover{
+    background-color: #b34949;
+    color: #565656;
+}
+
+.blue{
+    background-color: white;
+    border: 4px solid #47af97;
+    border-bottom: 2px solid #47af97;
+    border-top-right-radius: 5px;
+    height: 50%;
+}
+
+.onBlue:hover{
+    background-color: #8dc7b9;
+    color: #565656;
+}
+
+.nombre{
+    background-color: burlywood;
+    padding: 10px 0px;
+    width: 100%;
+    text-align: center;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+}

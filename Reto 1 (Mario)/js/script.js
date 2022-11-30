@@ -30,7 +30,25 @@ window.addEventListener("load", function() {
     // if(menu != null){
     //    menu.remove(); 
     // } 
+    thisDate();
 });
+
+function thisDate() {
+
+    let fecha = new Date();
+    let year = fecha.getFullYear();
+    let mes = fecha.getMonth() + 1;
+    let day = fecha.getDate();
+
+    let fechaStr = year + "-" + mes + "-" + day;
+    document.getElementById("dateA").min = fechaStr;
+}
+
+function selectDate() {
+
+    valorDate = document.getElementById("dateA").value;
+    document.getElementById("dateB").min = valorDate;
+}
 
 //GESTION DE ROLES
 function noLogin(){
